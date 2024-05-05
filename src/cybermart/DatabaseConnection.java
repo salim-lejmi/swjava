@@ -19,9 +19,9 @@ public class DatabaseConnection {
 
     public Connection getConnection() {
 
-        String databaseName = "cybermart";
+        String databaseName = "SW";
         String databaseUser = "root";
-        String databasePassword = "majid205";
+        String databasePassword = "";
         String url = "jdbc:mysql://localhost/" + databaseName;
 
         try {

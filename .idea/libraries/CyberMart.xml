@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="CyberMart">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/CyberMart.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/Compressed/controlsfx-11.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

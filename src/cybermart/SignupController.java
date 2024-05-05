@@ -1,153 +1,197 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cybermart;
 
-import com.jfoenix.controls.JFXButton;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javafx.scene.control.Label;
-
-/**
- * FXML Controller class
- *
- * @author majid
- */
-
+import javafx.scene.control.Button;
 public class SignupController implements Initializable {
-   @FXML
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-        @FXML
-    private JFXButton ExitWin;
+    public Label jobTitleLabel;
+    public Label specialityLabel;
 
     @FXML
-    private JFXButton ReturnLogin;
+    private TextField emailField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private TextField bankAccountField;
+    @FXML
+    private TextField jobTitleField;
+    @FXML
+    private TextField specialityField;
+    @FXML
+    private Label messageLabel;
 
     @FXML
-    private PasswordField S_C_PasswordField;
+    private Button clientSignupButton;
     @FXML
-    private Label passwordMatch;
-
+    private Button expertSignupButton;
     @FXML
-    private JFXButton sigupEntry;
-
-
+    private Button pictureUploadButton;
     @FXML
-    private TextField S_EmailField;
+    private Button jobDescriptionUploadButton;
 
     @FXML
-    private TextField S_NameField;
+    private Button backButton; // Declare the back button
 
     @FXML
-    private PasswordField S_PasswordField;
+    private void handleBack() {
+        try {
+            // Load the login page
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Login Page");
+            stage.resizableProperty().setValue(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    @FXML
-    private TextField S_PhoneField;
 
-    @FXML
-    private TextField S_UsernameField;
-    @FXML
-    private Label signupmessageLabel;
+    private boolean isClientSignup = true;
+    private String picturePath = "";
+    private String jobDescriptionPath = "";
 
-
-
-
-
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       ReturnLogin.setOnMouseClicked(event->{
-           try {
-               root = FXMLLoader.load(getClass().getResource("login.fxml"));
-               scene = new Scene(root);
-               stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-               stage.setTitle("Login Page");
-               stage.setScene(scene);
-               stage.show();
-           } catch (IOException ex) {
-               Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           
-           
-      
-               }) ;
-       ExitWin.setOnMouseClicked(event->   
-       {
-       Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.close();
-       
-       });
-       sigupEntry.setOnMouseClicked(event->  {
-       if(S_NameField.getText().isBlank()==false && S_EmailField.getText().isBlank()==false && 
-               S_UsernameField.getText().isBlank() == false && S_PasswordField.getText().isBlank() == false && 
-               S_C_PasswordField.getText().isBlank()==false && S_PhoneField.getText().isBlank() == false) {
-            if (S_C_PasswordField.getText().equals(S_PasswordField.getText())) {
-                registerUser();
-            }
-            else{
-                passwordMatch.setText("Password Doesn't Match");
-            }
-        }
-        else{
-            passwordMatch.setText("Please fill all details");
-        }
-       
-       
-       
-       });
-        
-        
-        
-        
-        // TODO
+        clientSignupButton.setOnAction(event -> {
+            isClientSignup = true;
+            updateFields();
+        });
+
+        expertSignupButton.setOnAction(event -> {
+            isClientSignup = false;
+            updateFields();
+        });
     }
-    public void registerUser(){
 
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
-
-        String d_name= S_NameField.getText();
-        String d_phone = S_PhoneField.getText();
-        String d_email=S_EmailField.getText();
-        String d_username=S_UsernameField.getText();
-        String d_password=S_C_PasswordField.getText();
-        
-
-        String insertFields="INSERT INTO customer_info(d_name,d_phone,d_email,d_username,d_password,d_cartshop) VALUES ('";
-        String insertValues= d_name + "','"+ d_phone+ "','" + d_email + "','" + d_username + "','" + d_password+ "','')";
-        String insertToSignup= insertFields+insertValues;
-
-
-        try{
-            Statement statement = connectDB.createStatement();
-            statement.executeUpdate(insertToSignup);
-            signupmessageLabel.setText("User has been signed up Successfully");
-        }
-        catch (SQLException e){
-            e.getCause();
-        }
+    private void updateFields() {
+        jobTitleField.setVisible(!isClientSignup);
+        specialityField.setVisible(!isClientSignup);
+        pictureUploadButton.setVisible(true); // Assuming picture upload is common for both
+        jobDescriptionUploadButton.setVisible(!isClientSignup);
+        jobTitleLabel.setVisible(!isClientSignup);
+        specialityLabel.setVisible(!isClientSignup);
 
     }
-    
+
+
+    @FXML
+    private void handlePictureUpload() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            picturePath = selectedFile.getAbsolutePath();
+            // You might want to move the file to a specific directory if needed
+        }
+    }
+
+    @FXML
+    private void handleJobDescriptionUpload() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Job Description");
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            jobDescriptionPath = selectedFile.getAbsolutePath();
+            // You might want to move the file to a specific directory if needed
+        }
+    }
+
+    @FXML
+    private void handleSignup() {
+        if (isClientSignup) {
+            handleClientSignup();
+        } else {
+            handleExpertSignup();
+        }
+    }
+
+    public void handleClientSignup() {
+        String email = emailField.getText();
+        String username = usernameField.getText();
+        String bank_account= bankAccountField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+        if (password.equals(confirmPassword)) {
+            DatabaseConnection connectNow = new DatabaseConnection();
+            Connection connectDB = connectNow.getConnection();
+            try {
+                String query = "INSERT INTO user (username, email, password, bank_account, roles, picture_url,bank_amount) VALUES (?, ?, ?, ?, ?, ?,?)";
+                PreparedStatement statement = connectDB.prepareStatement(query);
+                statement.setString(1, username);
+                statement.setString(2, email);
+                statement.setString(3, password);
+                statement.setString(4, bank_account);
+                statement.setString(5, "ROLE_CLIENT");
+                statement.setString(6, picturePath);
+                statement.setInt(7, 9515135);
+
+                statement.executeUpdate();
+                messageLabel.setText("Client registration successful!");
+            } catch (SQLException e) {
+                messageLabel.setText("Registration failed: " + e.getMessage());
+            }
+        } else {
+            messageLabel.setText("Passwords do not match!");
+        }
+    }
+
+    public void handleExpertSignup() {
+        String email = emailField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+        String jobTitle = jobTitleField.getText();
+        String speciality = specialityField.getText();
+        String bank_account= bankAccountField.getText();
+
+        if (password.equals(confirmPassword)) {
+            DatabaseConnection connectNow = new DatabaseConnection();
+            Connection connectDB = connectNow.getConnection();
+            try {
+                String query = "INSERT INTO user (username, email, password, bank_account, job_title, speciality, roles, picture_url, job_description,bank_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                PreparedStatement statement = connectDB.prepareStatement(query);
+                statement.setString(1, username);
+                statement.setString(2, email);
+                statement.setString(3, password);
+                statement.setString(4, bank_account);
+                statement.setString(5, jobTitle);
+                statement.setString(6, speciality);
+                statement.setString(7, "ROLE_EXPERT");
+                statement.setString(8, picturePath);
+                statement.setString(9, jobDescriptionPath);
+                statement.setInt(10, 9515135);
+
+                statement.executeUpdate();
+                messageLabel.setText("Expert registration successful!");
+            } catch (SQLException e) {
+                messageLabel.setText("Registration failed: " + e.getMessage());
+            }
+        } else {
+            messageLabel.setText("Passwords do not match!");
+        }
+    }
+
 }

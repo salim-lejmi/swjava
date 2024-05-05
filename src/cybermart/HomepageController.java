@@ -52,32 +52,7 @@ public class HomepageController implements Initializable {
     @FXML
     private JFXButton exit;
  
-//    @FXML
-//    private TextField keywordField;
 
-//    @FXML
-//    private TableColumn<productSearchModel, String> modelCol;
-//
-//    @FXML
-//    private TableColumn<productSearchModel, String> nameCol;
-//
-//    @FXML
-//    private TableColumn<productSearchModel, Integer> priceCol;
-//
-//    @FXML
-//    private TableView<productSearchModel> productTable;
-//
-//    @FXML
-//    private TableColumn<productSearchModel, Integer> ratingCol;
-//    @FXML
-//    private TableColumn<productSearchModel, String> imageCol;
-//    @FXML
-//    private TableColumn<productSearchModel,String> brandnameCol;
-//
-//    @FXML
-//    private TableColumn<productSearchModel, String> descriptionCol;
-//@FXML
-//    private TableColumn<productSearchModel, Integer> stockCol;
     @FXML
     private AnchorPane slider;
 
@@ -112,7 +87,8 @@ public class HomepageController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-   
+
+    private String username;
 
     
    // ObservableList<productSearchModel>productSearchModelObservableList = FXCollections.observableArrayList();
@@ -165,8 +141,9 @@ public class HomepageController implements Initializable {
             }); 
         });
         login_sign.setOnMouseClicked(event->{
-        
-            try {
+            if (username == null) {
+
+                try {
                 root = FXMLLoader.load(getClass().getResource("login.fxml"));
                 stage = new Stage();
                 scene = new Scene(root);
@@ -178,6 +155,9 @@ public class HomepageController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(HomepageController.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();
+            }
+            } else {
+                handleLogoutClick();
             }
         });
         cartButton.setOnMouseClicked(event->{
@@ -429,10 +409,45 @@ public class HomepageController implements Initializable {
             login_sign.setText(text);
            System.out.println(text);
         }
-         
-                
-            
-  }
+    public void setUsername(String username) {
+        this.username = username;
+        // Update the UI to show logout button or user information
+        updateUI();
+    }
+    private void updateUI() {
+        if (username != null) {
+            // User is logged in
+            login_sign.setText("Logout");
+            // You can also display user information here
+        } else {
+            // User is not logged in
+            login_sign.setText("Login/Signup");
+        }
+    }
+
+    @FXML
+    private void handleLogoutClick() {
+        // Perform logout actions
+        username = null;
+        updateUI();
+
+        // Switch back to the login scene or show a message
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = (Stage) bordermainPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+    }
+
+
+
+}
  
             
 
