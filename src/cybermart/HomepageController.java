@@ -5,6 +5,8 @@
 package cybermart;
 
 import com.jfoenix.controls.JFXButton;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -100,242 +102,241 @@ public class HomepageController implements Initializable {
         DatabaseConnection connectnow = new DatabaseConnection();
         Connection connectDBMS = connectnow.getConnection();
 
-       
-        
-        String insertApp="Update search_info SET search_query='Apparels' WHERE s_id ='1';";
-        String insertElec="Update search_info SET search_query='Electronics' WHERE s_id ='1';";
-        String insertAcc="Update search_info SET search_query='Accesories' WHERE s_id ='1';";
-        String insertKid="Update search_info SET search_query='Kids' WHERE s_id ='1';";
-        String insertMain="Update search_info SET search_query='' WHERE s_id ='1';";
+
+        String insertApp = "Update search_info SET search_query='Apparels' WHERE s_id ='1';";
+        String insertElec = "Update search_info SET search_query='Electronics' WHERE s_id ='1';";
+        String insertAcc = "Update search_info SET search_query='Accesories' WHERE s_id ='1';";
+        String insertKid = "Update search_info SET search_query='Kids' WHERE s_id ='1';";
+        String insertMain = "Update search_info SET search_query='' WHERE s_id ='1';";
         fxmlLoaderHome objectFront = new fxmlLoaderHome();
-        Pane viewHome =objectFront.getPage("frontPage");
-        bordermainPane.setCenter(viewHome);
-        
-        
-        exit.setOnMouseClicked(event->{System.exit(0);
+        String frontPageFXMLPath = "src/cybermart/frontPage.fxml";
+
+        Pane viewHome = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(new File(frontPageFXMLPath).toURI().toURL());
+            viewHome = fxmlLoader.load();
+            bordermainPane.setCenter(viewHome);
+        } catch (IOException e) {
+            System.err.println("Error loading frontPage.fxml: " + e.getMessage());
+            e.printStackTrace();
         }
+        bordermainPane.setCenter(viewHome);
+
+
+        exit.setOnMouseClicked(event -> {
+                    System.exit(0);
+                }
         );
-         slider.setTranslateX(-176);
-        Menu.setOnMouseClicked(event-> {
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(0);
-                slide.play();
-                slider.setTranslateX(-176);
-                slide.setOnFinished((ActionEvent e)->{
+        slider.setTranslateX(-176);
+        Menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+            slide.setToX(0);
+            slide.play();
+            slider.setTranslateX(-176);
+            slide.setOnFinished((ActionEvent e) -> {
                 Menu.setVisible(false);
                 MenuBack.setVisible(true);
-            }); 
+            });
         });
-        MenuBack.setOnMouseClicked(event-> {
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(-176);
-                slide.play();
-                slider.setTranslateX(0);
-                slide.setOnFinished((ActionEvent e)->{
+        MenuBack.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+            slide.setToX(-176);
+            slide.play();
+            slider.setTranslateX(0);
+            slide.setOnFinished((ActionEvent e) -> {
                 Menu.setVisible(true);
                 MenuBack.setVisible(false);
-            }); 
+            });
         });
-        login_sign.setOnMouseClicked(event->{
+        login_sign.setOnMouseClicked(event -> {
             if (username == null) {
 
                 try {
-                root = FXMLLoader.load(getClass().getResource("login.fxml"));
-                stage = new Stage();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Login Page");
-                stage.resizableProperty().setValue(false);
-                stage.show();
-                
-            } catch (IOException ex) {
-                Logger.getLogger(HomepageController.class.getName()).log(Level.SEVERE, null, ex);
-                ex.printStackTrace();
-            }
+                    root = FXMLLoader.load(getClass().getResource("login.fxml"));
+                    stage = new Stage();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.setTitle("Login Page");
+                    stage.resizableProperty().setValue(false);
+                    stage.show();
+
+                } catch (IOException ex) {
+                    Logger.getLogger(HomepageController.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
+                }
             } else {
                 handleLogoutClick();
             }
         });
-        cartButton.setOnMouseClicked(event->{
+        cartButton.setOnMouseClicked(event -> {
 
-        int cus_id = 0;
-        String cus_name = null;
-        try{
-            Statement statement1 = connectDBMS.createStatement();
-            String queryCID = "select customer_ID,customer_name FROM c_user WHERE c_ID=1;";
-            ResultSet queryCR = statement1.executeQuery(queryCID);
-            while(queryCR.next())
-            {
-                 cus_id = queryCR.getInt("customer_ID");
-                 cus_name=queryCR.getString("customer_name");
-            }
-               
-           }catch(SQLException e){
-                e.getCause();
-           }
-        if(cus_id==0 || cus_name.isEmpty())
-        {
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("pleaseLogin");
-            bordermainPane.setCenter(view);
-            
-        }else{
-            
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("shoppingCart");
-            bordermainPane.setCenter(view);
-            
-        }
-          
-        });
-        dashboardButton.setOnMouseClicked(event->{
-            
             int cus_id = 0;
-        String cus_name = null;
-        try{
-            Statement statement1 = connectDBMS.createStatement();
-            String queryCID = "select customer_ID,customer_name FROM c_user WHERE c_ID=1;";
-            ResultSet queryCR = statement1.executeQuery(queryCID);
-            while(queryCR.next())
-            {
-                 cus_id = queryCR.getInt("customer_ID");
-                 cus_name=queryCR.getString("customer_name");
-            }
-               
-           }catch(SQLException e){
+            String cus_name = null;
+            try {
+                Statement statement1 = connectDBMS.createStatement();
+                String queryCID = "select customer_ID,customer_name FROM c_user WHERE c_ID=1;";
+                ResultSet queryCR = statement1.executeQuery(queryCID);
+                while (queryCR.next()) {
+                    cus_id = queryCR.getInt("customer_ID");
+                    cus_name = queryCR.getString("customer_name");
+                }
+
+            } catch (SQLException e) {
                 e.getCause();
-           }
-        if(cus_id==0 || cus_name.isEmpty())
-        {
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("pleaseLogin");
-            bordermainPane.setCenter(view);
-            
-        }
-        else{
-            
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("DashboardPage");
-            bordermainPane.setCenter(view);
-            
-        }
-            
-            
-            
-            });
-        vendorButton.setOnMouseClicked(e->{
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("vendorPage");
-            bordermainPane.setCenter(view);
-        });
-        searchButton.setOnMouseClicked(event->{
-            
-            
-            try{
-            Statement statement = connectDBMS.createStatement();
-          
-            statement.executeUpdate(insertMain);
-       
             }
-        catch (SQLException e){
-            e.getCause();
-        }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("searchPage");
-            bordermainPane.setCenter(view);
-   
-        });
-        
-        homeButton.setOnMouseClicked(event->{
-            
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("frontPage"); 
-            bordermainPane.setCenter(view);
-   
-        });
-        apparelsButton.setOnMouseClicked(event->{
-            
-            try{
-            Statement statement = connectDBMS.createStatement();
-            statement.executeUpdate(insertApp);    
-     
-            }
-        catch (SQLException e){
-            e.getCause();
-            
-        }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("searchPage");
-            
-            bordermainPane.setCenter(view);
-   
-        });
-        electronicsButton.setOnMouseClicked(event->{
-            
-            try{
-            Statement statement = connectDBMS.createStatement();
-            statement.executeUpdate(insertElec);
+            if (cus_id == 0 || cus_name.isEmpty()) {
+                fxmlLoaderHome object = new fxmlLoaderHome();
+                Pane view = object.getPage("pleaseLogin");
+                bordermainPane.setCenter(view);
+
+            } else {
+
+                fxmlLoaderHome object = new fxmlLoaderHome();
+                Pane view = object.getPage("shoppingCart");
+                bordermainPane.setCenter(view);
 
             }
-        catch (SQLException e){
-            e.getCause();
-        }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("searchPage");
-            bordermainPane.setCenter(view);
-   
+
         });
-        kidsButton.setOnMouseClicked(event->{
-            
-            
-            try{
-            Statement statement = connectDBMS.createStatement();
-            statement.executeUpdate(insertKid);
+        dashboardButton.setOnMouseClicked(event -> {
+
+            int cus_id = 0;
+            String cus_name = null;
+            try {
+                Statement statement1 = connectDBMS.createStatement();
+                String queryCID = "select customer_ID,customer_name FROM c_user WHERE c_ID=1;";
+                ResultSet queryCR = statement1.executeQuery(queryCID);
+                while (queryCR.next()) {
+                    cus_id = queryCR.getInt("customer_ID");
+                    cus_name = queryCR.getString("customer_name");
+                }
+
+            } catch (SQLException e) {
+                e.getCause();
             }
-        catch (SQLException e){
-            e.getCause();
-        }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("searchPage");
-            bordermainPane.setCenter(view);
-   
-        });
-        accesoriesButton.setOnMouseClicked(event->{
-            
-            
-            try{
-            Statement statement = connectDBMS.createStatement();
-            statement.executeUpdate(insertAcc);
+            if (cus_id == 0 || cus_name.isEmpty()) {
+                fxmlLoaderHome object = new fxmlLoaderHome();
+                Pane view = object.getPage("pleaseLogin");
+                bordermainPane.setCenter(view);
+
+            } else {
+
+                fxmlLoaderHome object = new fxmlLoaderHome();
+                Pane view = object.getPage("DashboardPage");
+                bordermainPane.setCenter(view);
+
             }
-        catch (SQLException e){
-            e.getCause();
-        }
+
+
+        });
+        vendorButton.setOnMouseClicked(e -> {
             fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view =object.getPage("searchPage");
-            
+            Pane view = object.getPage("vendorPage");
             bordermainPane.setCenter(view);
-   
         });
-        
-        MenuBack.setOnMouseExited(event->{
-            MenuBack. setStyle("-fx-background-color: #00000000; ");
-            
+        searchButton.setOnMouseClicked(event -> {
+
+
+            try {
+                Statement statement = connectDBMS.createStatement();
+
+                statement.executeUpdate(insertMain);
+
+            } catch (SQLException e) {
+                e.getCause();
+            }
+            fxmlLoaderHome object = new fxmlLoaderHome();
+            Pane view = object.getPage("searchPage");
+            bordermainPane.setCenter(view);
+
         });
-        MenuBack.setOnMouseEntered(event->{
-            MenuBack. setStyle("-fx-background-color:  #00CED1; "); 
-            
+
+        homeButton.setOnMouseClicked(event -> {
+
+            fxmlLoaderHome object = new fxmlLoaderHome();
+            Pane view = object.getPage("frontPage");
+            bordermainPane.setCenter(view);
+
         });
-        Menu.setOnMouseExited(event->{
-            Menu. setStyle("-fx-background-color: #00000000; "); 
-            
+        apparelsButton.setOnMouseClicked(event -> {
+
+            try {
+                Statement statement = connectDBMS.createStatement();
+                statement.executeUpdate(insertApp);
+
+            } catch (SQLException e) {
+                e.getCause();
+
+            }
+            fxmlLoaderHome object = new fxmlLoaderHome();
+            Pane view = object.getPage("searchPage");
+
+            bordermainPane.setCenter(view);
+
         });
-        Menu.setOnMouseEntered(event->{
-            Menu. setStyle("-fx-background-color:  #00CED1; "); 
-            
+        electronicsButton.setOnMouseClicked(event -> {
+
+            try {
+                Statement statement = connectDBMS.createStatement();
+                statement.executeUpdate(insertElec);
+
+            } catch (SQLException e) {
+                e.getCause();
+            }
+            fxmlLoaderHome object = new fxmlLoaderHome();
+            Pane view = object.getPage("searchPage");
+            bordermainPane.setCenter(view);
+
+        });
+        kidsButton.setOnMouseClicked(event -> {
+
+
+            try {
+                Statement statement = connectDBMS.createStatement();
+                statement.executeUpdate(insertKid);
+            } catch (SQLException e) {
+                e.getCause();
+            }
+            fxmlLoaderHome object = new fxmlLoaderHome();
+            Pane view = object.getPage("searchPage");
+            bordermainPane.setCenter(view);
+
+        });
+        accesoriesButton.setOnMouseClicked(event -> {
+
+
+            try {
+                Statement statement = connectDBMS.createStatement();
+                statement.executeUpdate(insertAcc);
+            } catch (SQLException e) {
+                e.getCause();
+            }
+            fxmlLoaderHome object = new fxmlLoaderHome();
+            Pane view = object.getPage("searchPage");
+
+            bordermainPane.setCenter(view);
+
+        });
+
+        MenuBack.setOnMouseExited(event -> {
+            MenuBack.setStyle("-fx-background-color: #00000000; ");
+
+        });
+        MenuBack.setOnMouseEntered(event -> {
+            MenuBack.setStyle("-fx-background-color:  #00CED1; ");
+
+        });
+        Menu.setOnMouseExited(event -> {
+            Menu.setStyle("-fx-background-color: #00000000; ");
+
+        });
+        Menu.setOnMouseEntered(event -> {
+            Menu.setStyle("-fx-background-color:  #00CED1; ");
+
         });
 
 //searchButton.setOnMouseEntered(event->{
@@ -399,11 +400,9 @@ public class HomepageController implements Initializable {
 //        homeButton.setOnMouseExited(event->{
 //            homeButton. setStyle("-fx-background-color: #00CED1; "); 
 //        });
-        
-        
-         
 
-        }
+
+    }
           
         public void setLabel(String text){
             login_sign.setText(text);

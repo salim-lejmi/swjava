@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cybermart;
 
 import java.io.IOException;
@@ -23,69 +19,47 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author majid
- */
 public class FrontPageController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     *
-     */
     @FXML
     private HBox recentLayout;
-    @FXML
-    private HBox ratedLayout;
-    
-    private List<cardObject> recentlyAdded;
-    private List<cardObject> toprated;
+
+    private List<cardObject> cars;
     private MyListener myListener;
-     private Stage stage;
+    private Stage stage;
     private Scene scene;
     private Parent root;
+
     private void setChosenCard(cardObject cardC) {
-         String queryRow = "Update row_table SET r_id='"+cardC.getcID()+"',r_name='"+cardC.getcName()+"' WHERE r_pk ='1';";
-                    //System.out.println(queryRow);
-         DatabaseConnection connectNow = new DatabaseConnection();
+        String queryRow = "Update row_table SET r_id='" + cardC.getId() + "',r_name='" + cardC.getMark() + "' WHERE r_pk ='1';";
+        DatabaseConnection connectNow = new DatabaseConnection();
         java.sql.Connection connectDB = connectNow.getConnection();
 
         try {
-
             Statement statementR = connectDB.createStatement();
             statementR.executeUpdate(queryRow);
-
         } catch (SQLException e) {
             e.getCause();
         }
-        
-        try {
 
-                root = FXMLLoader.load(getClass().getResource("ProductDetails.fxml"));
-                stage = new Stage();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Product details page");
-                stage.resizableProperty().setValue(false);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(HomepageController.class.getName()).log(Level.SEVERE, null, ex);
-                ex.printStackTrace();
-            }
-        
-        //System.out.println(cardC.getcID());
+        try {
+            root = FXMLLoader.load(getClass().getResource("ProductDetails.fxml"));
+            stage = new Stage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Product details page");
+            stage.resizableProperty().setValue(false);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(HomepageController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-        // TODO
-        recentlyAdded =new ArrayList<>(recentlyAdded());
-        toprated =new ArrayList<>(toprated());
-        if (toprated.size() > 0&& recentlyAdded.size()>0) {
- 
+        cars = new ArrayList<>(getAllCars());
+        if (cars.size() > 0) {
             myListener = new MyListener() {
                 @Override
                 public void onClickListener(cardObject cardC) {
@@ -93,137 +67,69 @@ public class FrontPageController implements Initializable {
                 }
             };
         }
-        try{
-            for(int i=0;i<recentlyAdded.size();i++)
-            {
-                FXMLLoader fxmlloader =new FXMLLoader();
+
+        try {
+            for (int i = 0; i < cars.size(); i++) {
+                FXMLLoader fxmlloader = new FXMLLoader();
                 fxmlloader.setLocation(getClass().getResource("productCard.fxml"));
-                HBox cardBox =fxmlloader.load();
-                cardController cardC=fxmlloader.getController();
-                cardObject a=new cardObject();
-                a=recentlyAdded.get(i);
-                cardC.setData(a,myListener);
+                HBox cardBox = fxmlloader.load();
+                cardController cardC = fxmlloader.getController();
+                cardObject a = cars.get(i);
+                cardC.setData(a, myListener);
                 recentLayout.getChildren().add(cardBox);
-
+                System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
             }
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-            
         }
-        
-        
-        try{
-            for(int i=0;i<toprated.size();i++)
-            {
-                FXMLLoader fxmlloader =new FXMLLoader();
-                fxmlloader.setLocation(getClass().getResource("productCard.fxml"));
-                HBox cardBox =fxmlloader.load();
-                cardController cardC=fxmlloader.getController();
-                cardObject a=new cardObject();
-                a=toprated.get(i);
-                cardC.setData(a,myListener);
-                ratedLayout.getChildren().add(cardBox);
-
-            }
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-            
-        }
-        
     }
-      private List<cardObject > recentlyAdded()
-      {
-          DatabaseConnection connectNow = new DatabaseConnection();
-          Connection connectDB = connectNow.getConnection();
-          List<cardObject> rAdd =new ArrayList<>();
-          cardObject cObj =new cardObject();
-          
-          
-        String query1 = "SELECT d_id_product,d_name_product, d_price, d_stock, d_rating, d_image FROM product_info order by d_id_product desc limit 5;";
-        
-        try {
 
+    private List<cardObject> getAllCars() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        List<cardObject> rAdd = new ArrayList<>();
+
+        String query1 = "SELECT id, mark, model, price, description, pictures, abs, epc, gray_card, auto_gear_box, taxes, insurance, color, mileage, quantity, add_date FROM car";
+
+        try {
             Statement statement = connectDB.createStatement();
             ResultSet queryresult = statement.executeQuery(query1);
-            
-            while (queryresult.next()) { 
-                //rest_part=queryresult.getString(1);
-                
-                Double queryRating = queryresult.getDouble("d_rating");
-                Integer queryStock = queryresult.getInt("d_stock");
-                String queryImage=queryresult.getString("d_image");
-                Integer queryPrice = queryresult.getInt("d_price");
-                String queryName=queryresult.getString("d_name_product");
-                Integer queryId = queryresult.getInt("d_id_product");
-                
-          cObj =new cardObject();
-          cObj.setcName(queryName);
-          cObj.setCstock(queryStock+" in stock");
-          cObj.setcPrice(queryPrice +" BDT");
-          cObj.setcRating(queryRating);
-          cObj.setcID(queryId);
-          //cObj.setcRating("images/5star.png");
-          cObj.setcImage(queryImage);//"Lenovo","5 instock","9000 bdt","/productimages/pocox3.png","/images/5star.png"
-           rAdd.add(cObj);
-                
- 
-            }
 
+            System.out.println("getAllCars() method called");
+
+            if (!queryresult.isBeforeFirst()) {
+                System.out.println("No data found in the car table");
+            } else {
+                while (queryresult.next()) {
+                    Integer queryId = queryresult.getInt("id");
+                    String queryMark = queryresult.getString("mark");
+                    String queryModel = queryresult.getString("model");
+                    Integer queryPrice = queryresult.getInt("price");
+                    String queryDescription = queryresult.getString("description");
+                    String queryPictures = queryresult.getString("pictures");
+                    Boolean queryAbs = queryresult.getBoolean("abs");
+                    Boolean queryEpc = queryresult.getBoolean("epc");
+                    Boolean queryGrayCard = queryresult.getBoolean("gray_card");
+                    Boolean queryAutoGearBox = queryresult.getBoolean("auto_gear_box");
+                    Boolean queryTaxes = queryresult.getBoolean("taxes");
+                    Boolean queryInsurance = queryresult.getBoolean("insurance");
+                    String queryColor = queryresult.getString("color");
+                    Integer queryMileage = queryresult.getInt("mileage");
+                    Integer queryQuantity = queryresult.getInt("quantity");
+
+                    cardObject cObj = new cardObject(queryId, queryMark, queryModel, queryPrice, queryDescription, queryPictures, queryAbs, queryEpc, queryGrayCard, queryAutoGearBox, queryTaxes, queryInsurance, queryColor, queryMileage, queryQuantity);
+                    rAdd.add(cObj);
+
+                    System.out.println("Added cardObject: " + cObj.getMark() + " " + cObj.getModel());
+                }
+            }
         } catch (SQLException e) {
-            e.getCause();
+            System.err.println("Error executing SQL query: " + e.getMessage());
+            e.printStackTrace();
         }
 
-                  return rAdd;
-          
-      }
-      private List<cardObject > toprated()
-      {
-          DatabaseConnection connectNow = new DatabaseConnection();
-          Connection connectDB = connectNow.getConnection();
-          List<cardObject> rAdd =new ArrayList<>();
-          cardObject cObj =new cardObject();
-          
-          
-        String query1 = "SELECT d_id_product,d_name_product, d_price, d_stock, d_rating, d_image FROM product_info order by d_rating desc limit 5;";
-        
-        try {
+        System.out.println("getAllCars() method returning " + rAdd.size() + " cardObjects");
 
-            Statement statement = connectDB.createStatement();
-            ResultSet queryresult = statement.executeQuery(query1);
-            
-            while (queryresult.next()) { 
-                //rest_part=queryresult.getString(1);
-                
-                Double queryRating = queryresult.getDouble("d_rating");
-                Integer queryStock = queryresult.getInt("d_stock");
-                String queryImage=queryresult.getString("d_image");
-                Integer queryPrice = queryresult.getInt("d_price");
-                String queryName=queryresult.getString("d_name_product");
-                Integer queryId = queryresult.getInt("d_id_product");
-                
-          cObj =new cardObject();
-          cObj.setcName(queryName);
-          cObj.setCstock(queryStock+" in stock");
-          cObj.setcPrice(queryPrice +" BDT");
-          cObj.setcRating(queryRating);
-          cObj.setcID(queryId);
-          cObj.setcImage(queryImage);//"Lenovo","5 instock","9000 bdt","/productimages/pocox3.png","/images/5star.png"
-           rAdd.add(cObj);
-                
- 
-            }
-
-        } catch (SQLException e) {
-            e.getCause();
-        }
-          
-       return rAdd;
-      }
-            
-
-    
+        return rAdd;
+    }
 }

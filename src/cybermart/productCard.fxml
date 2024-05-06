@@ -33,7 +33,6 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Rating fx:id="cardRating" prefHeight="32.0" prefWidth="181.0" />
             <Label fx:id="cardPrice" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="price">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -45,6 +44,39 @@
             <Label fx:id="cardStock" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="stock">
                <font>
                   <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="-10.0" />
+               </VBox.margin>
+            </Label>
+            <!-- New fields -->
+            <Label fx:id="cardDescription" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Description">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="-10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="cardColor" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Color">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="-10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="cardMileage" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Mileage">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="-10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="cardQuantity" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Quantity">
+               <font>
+                  <Font name="System Bold" size="14.0" />
                </font>
                <VBox.margin>
                   <Insets left="-10.0" />
