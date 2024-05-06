@@ -73,9 +73,7 @@ public class HomepageController implements Initializable {
     private JFXButton homeButton;
 
     @FXML
-    private JFXButton dashboardButton;
-    @FXML
-    private JFXButton vendorButton;
+    private JFXButton dashboardButton;;
     @FXML
     private JFXButton login_sign;
 
@@ -103,10 +101,6 @@ public class HomepageController implements Initializable {
         Connection connectDBMS = connectnow.getConnection();
 
 
-        String insertApp = "Update search_info SET search_query='Apparels' WHERE s_id ='1';";
-        String insertElec = "Update search_info SET search_query='Electronics' WHERE s_id ='1';";
-        String insertAcc = "Update search_info SET search_query='Accesories' WHERE s_id ='1';";
-        String insertKid = "Update search_info SET search_query='Kids' WHERE s_id ='1';";
         String insertMain = "Update search_info SET search_query='' WHERE s_id ='1';";
         fxmlLoaderHome objectFront = new fxmlLoaderHome();
         String frontPageFXMLPath = "src/cybermart/frontPage.fxml";
@@ -233,11 +227,7 @@ public class HomepageController implements Initializable {
 
 
         });
-        vendorButton.setOnMouseClicked(e -> {
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view = object.getPage("vendorPage");
-            bordermainPane.setCenter(view);
-        });
+
         searchButton.setOnMouseClicked(event -> {
 
 
@@ -262,65 +252,7 @@ public class HomepageController implements Initializable {
             bordermainPane.setCenter(view);
 
         });
-        apparelsButton.setOnMouseClicked(event -> {
 
-            try {
-                Statement statement = connectDBMS.createStatement();
-                statement.executeUpdate(insertApp);
-
-            } catch (SQLException e) {
-                e.getCause();
-
-            }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view = object.getPage("searchPage");
-
-            bordermainPane.setCenter(view);
-
-        });
-        electronicsButton.setOnMouseClicked(event -> {
-
-            try {
-                Statement statement = connectDBMS.createStatement();
-                statement.executeUpdate(insertElec);
-
-            } catch (SQLException e) {
-                e.getCause();
-            }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view = object.getPage("searchPage");
-            bordermainPane.setCenter(view);
-
-        });
-        kidsButton.setOnMouseClicked(event -> {
-
-
-            try {
-                Statement statement = connectDBMS.createStatement();
-                statement.executeUpdate(insertKid);
-            } catch (SQLException e) {
-                e.getCause();
-            }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view = object.getPage("searchPage");
-            bordermainPane.setCenter(view);
-
-        });
-        accesoriesButton.setOnMouseClicked(event -> {
-
-
-            try {
-                Statement statement = connectDBMS.createStatement();
-                statement.executeUpdate(insertAcc);
-            } catch (SQLException e) {
-                e.getCause();
-            }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view = object.getPage("searchPage");
-
-            bordermainPane.setCenter(view);
-
-        });
 
         MenuBack.setOnMouseExited(event -> {
             MenuBack.setStyle("-fx-background-color: #00000000; ");

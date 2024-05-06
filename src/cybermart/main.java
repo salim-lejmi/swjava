@@ -47,7 +47,7 @@ public class main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Cyber Mart");
+        primaryStage.setTitle("SwiftWheels");
         primaryStage.setScene(scene);
         primaryStage.resizableProperty().setValue(false);
         primaryStage.show();

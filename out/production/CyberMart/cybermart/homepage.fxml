@@ -25,7 +25,7 @@
                <children>
                   <Pane layoutX="167.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: Darkslateblue;" stylesheets="@homepage.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" layoutX="6.0" prefHeight="25.0" prefWidth="190.0" text="CYBER MART" textAlignment="CENTER" textFill="WHITE">
+                        <Label alignment="CENTER" layoutX="6.0" prefHeight="25.0" prefWidth="190.0" text="SWIFTWHEELS" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -56,21 +56,7 @@
                               <Bloom />
                            </effect>
                         </JFXButton>
-                        <JFXButton fx:id="vendorButton" alignment="TOP_LEFT" layoutX="10.0" prefHeight="43.0" prefWidth="196.0" style="-fx-background-radius: 0;" text="Be a Vendor">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/cashier.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <font>
-                              <Font name="System Bold" size="17.0" />
-                           </font>
-                           <effect>
-                              <Bloom />
-                           </effect>
-                        </JFXButton>
+
                         <JFXButton fx:id="cartButton" alignment="TOP_LEFT" layoutX="206.0" prefHeight="43.0" prefWidth="196.0" style="-fx-background-radius: 0;" text="Shopping Cart">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -167,66 +153,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="apparelsButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="176.0" style="-fx-background-radius: 0;" styleClass="sideBarItem" text="Apparels">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/shirt.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="electronicsButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="56.0" prefHeight="45.0" prefWidth="176.0" style="-fx-background-radius: 0;" text="Elecctronics">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/responsive.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="kidsButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="101.0" prefHeight="45.0" prefWidth="176.0" style="-fx-background-radius: 0;" text="Kids">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/playing.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="accesoriesButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="45.0" prefWidth="176.0" style="-fx-background-radius: 0;" styleClass="mainFxmlClass" text="Accesories">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/watch.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
+
                      </children>
                   </VBox>
                </children>
