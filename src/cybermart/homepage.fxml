@@ -72,6 +72,21 @@
                               <Bloom />
                            </effect>
                         </JFXButton>
+                        <JFXButton fx:id="addCarButton" alignment="TOP_LEFT" onAction="#showAddCardForm" prefHeight="43.0" prefWidth="196.0" style="-fx-background-radius: 0;" text="Add New Car">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/shopping-cart (2).png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <effect>
+                              <Bloom />
+                           </effect>
+                        </JFXButton>
                         <JFXButton fx:id="login_sign" alignment="TOP_LEFT" layoutX="402.0" prefHeight="42.0" prefWidth="195.0" style="-fx-background-radius: 0;" text="Login/Signup">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

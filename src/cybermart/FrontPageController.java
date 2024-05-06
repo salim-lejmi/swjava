@@ -71,7 +71,7 @@ public class FrontPageController implements Initializable {
         }
 
         try {
-            int columnCount = 3; // Number of cards per row
+            int columnCount = 2; // Number of cards per row
             for (int i = 0; i < cars.size(); i++) {
                 FXMLLoader fxmlloader = new FXMLLoader();
                 fxmlloader.setLocation(getClass().getResource("productCard.fxml"));

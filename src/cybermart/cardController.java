@@ -20,7 +20,6 @@ public class cardController {
         this.cardC = cardC;
         this.myListener = myListener;
 
-        // Set existing fields
         String imagePath = "C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads\\" + cardC.getPictures();
         Image tImage1 = new Image("file:" + imagePath, 169, 163, false, false);
         cardImage.setImage(tImage1);
@@ -31,7 +30,6 @@ public class cardController {
         cardPrice.setText("Price: " + String.valueOf(cardC.getPrice()));
         cardStock.setText("Stock: " + String.valueOf(cardC.getQuantity()));
 
-        // Set new fields
         cardDescription.setText("Description: " + cardC.getDescription());
         cardColor.setText("Color: " + cardC.getColor());
         cardMileage.setText("Mileage: " + String.valueOf(cardC.getMileage()));

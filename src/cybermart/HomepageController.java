@@ -355,6 +355,19 @@ public class HomepageController implements Initializable {
             login_sign.setText("Login/Signup");
         }
     }
+    @FXML
+    private void showAddCardForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCardForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Add New Car");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleLogoutClick() {
