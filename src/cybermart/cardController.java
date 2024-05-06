@@ -28,14 +28,14 @@ public class cardController {
         cardImage.setFitWidth(163);
 
         cardName.setText(cardC.getMark() + " " + cardC.getModel());
-        cardPrice.setText(String.valueOf(cardC.getPrice()));
-        cardStock.setText(String.valueOf(cardC.getQuantity()));
+        cardPrice.setText("Price: " + String.valueOf(cardC.getPrice()));
+        cardStock.setText("Stock: " + String.valueOf(cardC.getQuantity()));
 
         // Set new fields
-        cardDescription.setText(cardC.getDescription());
-        cardColor.setText(cardC.getColor());
-        cardMileage.setText(String.valueOf(cardC.getMileage()));
-        cardQuantity.setText(String.valueOf(cardC.getQuantity()));
+        cardDescription.setText("Description: " + cardC.getDescription());
+        cardColor.setText("Color: " + cardC.getColor());
+        cardMileage.setText("Mileage: " + String.valueOf(cardC.getMileage()));
+        cardQuantity.setText("Quantity: " + String.valueOf(cardC.getQuantity()));
     }
     @FXML
     private void click() {

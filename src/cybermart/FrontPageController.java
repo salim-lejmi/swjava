@@ -18,11 +18,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 public class FrontPageController implements Initializable {
 
     @FXML
-    private HBox recentLayout;
+    private GridPane recentLayout;
+
 
     private List<cardObject> cars;
     private MyListener myListener;
@@ -69,6 +71,7 @@ public class FrontPageController implements Initializable {
         }
 
         try {
+            int columnCount = 3; // Number of cards per row
             for (int i = 0; i < cars.size(); i++) {
                 FXMLLoader fxmlloader = new FXMLLoader();
                 fxmlloader.setLocation(getClass().getResource("productCard.fxml"));
@@ -76,7 +79,13 @@ public class FrontPageController implements Initializable {
                 cardController cardC = fxmlloader.getController();
                 cardObject a = cars.get(i);
                 cardC.setData(a, myListener);
-                recentLayout.getChildren().add(cardBox);
+
+                // Calculate row and column
+                int row = i / columnCount;
+                int col = i % columnCount;
+
+                // Add the card to the GridPane
+                recentLayout.add(cardBox, col, row);
                 System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
             }
         } catch (IOException e) {

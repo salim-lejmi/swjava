@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CyberMart.iml" filepath="$PROJECT_DIR$/CyberMart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwiftWheels.iml" filepath="$PROJECT_DIR$/SwiftWheels.iml" />
     </modules>
   </component>
 </project>
