@@ -25,12 +25,14 @@ public class FrontPageController implements Initializable {
     @FXML
     private GridPane recentLayout;
 
-
     private List<cardObject> cars;
     private MyListener myListener;
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    private int currentPage = 1;
+    private int itemsPerPage = 8;
 
     private void setChosenCard(cardObject cardC) {
         String queryRow = "Update row_table SET r_id='" + cardC.getId() + "',r_name='" + cardC.getMark() + "' WHERE r_pk ='1';";
@@ -70,28 +72,50 @@ public class FrontPageController implements Initializable {
             };
         }
 
-        try {
-            int columnCount = 2; // Number of cards per row
-            for (int i = 0; i < cars.size(); i++) {
-                FXMLLoader fxmlloader = new FXMLLoader();
-                fxmlloader.setLocation(getClass().getResource("productCard.fxml"));
+        updateCards();
+    }
+
+    private void updateCards() {
+        recentLayout.getChildren().clear(); // Clear the current cards
+
+        int start = (currentPage - 1) * itemsPerPage;
+        int end = Math.min(start + itemsPerPage, cars.size());
+
+        for (int i = start; i < end; i++) {
+            FXMLLoader fxmlloader = new FXMLLoader();
+            fxmlloader.setLocation(getClass().getResource("productCard.fxml"));
+            try {
                 HBox cardBox = fxmlloader.load();
-                cardController cardC = fxmlloader.getController();
-                cardObject a = cars.get(i);
-                cardC.setData(a, myListener);
+            cardController cardC = fxmlloader.getController();
+            cardObject a = cars.get(i);
+            cardC.setData(a, myListener);
 
-                // Calculate row and column
-                int row = i / columnCount;
-                int col = i % columnCount;
+            // Calculate row and column
+            int row = (i - start) / 2; // Assuming 2 columns
+            int col = (i - start) % 2;
 
-                // Add the card to the GridPane
-                recentLayout.add(cardBox, col, row);
-                System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Add the card to the GridPane
+            recentLayout.add(cardBox, col, row);
+            System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
+            } catch (IOException e) {
+                e.printStackTrace(); // Or handle the exception in a way that's appropriate for your application
+
+            }  }}
+
+    public void nextPage() {
+        if (currentPage * itemsPerPage < cars.size()) {
+            currentPage++;
+            updateCards();
         }
     }
+
+    public void previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            updateCards();
+        }
+    }
+
 
     private List<cardObject> getAllCars() {
         DatabaseConnection connectNow = new DatabaseConnection();
