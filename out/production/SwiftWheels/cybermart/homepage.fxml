@@ -56,7 +56,21 @@
                               <Bloom />
                            </effect>
                         </JFXButton>
-
+                        <JFXButton fx:id="receiptButton" alignment="TOP_LEFT" prefHeight="43.0" prefWidth="196.0" style="-fx-background-radius: 0;" text="Receipt">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/monitor.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <Bloom />
+                           </effect>
+                        </JFXButton>
                         <JFXButton fx:id="cartButton" alignment="TOP_LEFT" layoutX="206.0" prefHeight="43.0" prefWidth="196.0" style="-fx-background-radius: 0;" text="Shopping Cart">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

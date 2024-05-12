@@ -4,6 +4,8 @@
  */
 package cybermart;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author majid
@@ -16,12 +18,14 @@ public class ShoppingCartModel {
     private boolean purchased;
     private String carModel;
     private String carMark;
+
     public ShoppingCartModel(int id, double price, int userId, int carId, boolean purchased) {
         this.id = id;
         this.price = price;
         this.userId = userId;
         this.carId = carId;
         this.purchased = purchased;
+
     }
 
     // Getters
@@ -69,6 +73,7 @@ public class ShoppingCartModel {
         return carModel;
     }
 
+
     public String getCarMark() {
         return carMark;
     }
@@ -79,4 +84,14 @@ public class ShoppingCartModel {
     public void setCarMark(String carMark) {
         this.carMark = carMark;
     }
+    private String pictures;
+
+    public String getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(String pictures) {
+        this.pictures = pictures;
+    }
+
 }

@@ -73,7 +73,9 @@ public class HomepageController implements Initializable {
     private JFXButton homeButton;
 
     @FXML
-    private JFXButton dashboardButton;;
+    private JFXButton dashboardButton;
+    @FXML
+    private JFXButton receiptButton;
     @FXML
     private JFXButton login_sign;
 
@@ -187,8 +189,19 @@ public class HomepageController implements Initializable {
                 e.printStackTrace();
             }
         });
+        receiptButton.setOnMouseClicked(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("receipt.fxml"));
+                Parent root = fxmlLoader.load();
+                ReceiptController receiptController = fxmlLoader.getController();
+                receiptController.setUserId(userId); // Pass the user ID
 
+                bordermainPane.setCenter(root);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         dashboardButton.setOnMouseClicked(event -> {
 
             int cus_id = 0;
