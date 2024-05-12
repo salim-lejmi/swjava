@@ -180,15 +180,14 @@ public class HomepageController implements Initializable {
                 ShoppingCartController shoppingCartController = fxmlLoader.getController();
                 shoppingCartController.setUserId(userId); // Pass the user ID
 
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Shopping Cart");
-                stage.show();
+                // Assuming bordermainPane is the main container in your application
+                bordermainPane.setCenter(root);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+
 
         dashboardButton.setOnMouseClicked(event -> {
 
@@ -240,11 +239,12 @@ public class HomepageController implements Initializable {
         });
 
         homeButton.setOnMouseClicked(event -> {
-
+            if (frontPageController != null) {
+                frontPageController.refreshData(); // Refresh the data in FrontPageController
+            }
             fxmlLoaderHome object = new fxmlLoaderHome();
             Pane view = object.getPage("frontPage");
             bordermainPane.setCenter(view);
-
         });
 
 

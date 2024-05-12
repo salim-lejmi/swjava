@@ -21,6 +21,11 @@ import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
 public class FrontPageController implements Initializable {
+    private int userId = 0; // Initialize userId to a default value
+
+    public FrontPageController() {
+        // Default constructor
+    }
 
     @FXML
     private GridPane recentLayout;
@@ -33,12 +38,10 @@ public class FrontPageController implements Initializable {
 
     private int currentPage = 1;
     private int itemsPerPage = 8;
-    private int userId;
     public void setUserId(int userId) {
         this.userId = userId;
         System.out.println("User ID in front page controller now: " + userId);
         updateCards();
-
     }
 
     private void setChosenCard(cardObject cardC) {
@@ -124,6 +127,10 @@ public class FrontPageController implements Initializable {
             currentPage--;
             updateCards();
         }
+    }
+    public void refreshData() {
+        cars = new ArrayList<>(getAllCars()); // Refresh the list of cars
+        updateCards(); // Update the UI with the new list of cars
     }
 
 

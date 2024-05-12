@@ -72,4 +72,11 @@ public class ShoppingCartModel {
     public String getCarMark() {
         return carMark;
     }
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public void setCarMark(String carMark) {
+        this.carMark = carMark;
+    }
 }

@@ -55,7 +55,6 @@ public class cardController {
         int carId = cardC.getId(); // Assuming cardObject has an ID
         DatabaseConnection connectNow = new DatabaseConnection();
 
-        // Insert into cart table
         String insertQuery = "INSERT INTO cart (price, user_id, car_id, purchased) VALUES (?,?,?,?)";
         try (Connection connectDB = connectNow.getConnection();
              PreparedStatement statement = connectDB.prepareStatement(insertQuery)) {

@@ -73,11 +73,10 @@ public class ShoppingCartController {
 
     private List<ShoppingCartModel> fetchCartItems(int userId) {
         List<ShoppingCartModel> cartItems = new ArrayList<>();
-        String query = "SELECT * FROM cart WHERE user_id =?";
+        String query = "SELECT c.*, car.model, car.mark FROM cart c JOIN car car ON c.car_id = car.id WHERE c.user_id = ?";
         DatabaseConnection connectNow = new DatabaseConnection();
 
         try (Connection connectDB = connectNow.getConnection();
-
              PreparedStatement statement = connectDB.prepareStatement(query)) {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
@@ -90,6 +89,8 @@ public class ShoppingCartController {
                         resultSet.getInt("car_id"),
                         resultSet.getBoolean("purchased")
                 );
+                item.setCarModel(resultSet.getString("model"));
+                item.setCarMark(resultSet.getString("mark"));
                 cartItems.add(item);
             }
         } catch (SQLException e) {

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns="http://javafx.com/fxml" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane xmlns="http://javafx.com/fxml" xmlns:fx="http://javafx.com/fxml" fx:controller="cybermart.ShoppingCartController">
    <children>
       <ScrollPane fitToWidth="true">
          <content>
