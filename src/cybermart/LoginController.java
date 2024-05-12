@@ -111,6 +111,7 @@ public class LoginController implements Initializable {
             if (resultSet.next()) {
                 // Login successful
                 LoginMsgLabel.setText("Welcome to Cyber Mart family");
+                int userId = resultSet.getInt("id");
 
                 // Load the homepage scene
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("homepage.fxml"));
@@ -126,6 +127,8 @@ public class LoginController implements Initializable {
 
                 // Pass the username to the HomepageController if needed
                 homepageController.setUsername(username);
+                homepageController.setUserId(userId); // Add this method in HomepageController
+
             } else {
                 // Login failed
                 LoginMsgLabel.setText("Invalid login. Please try again.");

@@ -79,6 +79,8 @@
                   <Insets left="-10.0" />
                </VBox.margin>
             </Label>
+            <Button fx:id="buyButton" text="Buy" onAction="#buyClicked"/>
+
          </children>
          <HBox.margin>
             <Insets bottom="10.0" top="10.0" />

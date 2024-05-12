@@ -33,6 +33,13 @@ public class FrontPageController implements Initializable {
 
     private int currentPage = 1;
     private int itemsPerPage = 8;
+    private int userId;
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("User ID in front page controller now: " + userId);
+        updateCards();
+
+    }
 
     private void setChosenCard(cardObject cardC) {
         String queryRow = "Update row_table SET r_id='" + cardC.getId() + "',r_name='" + cardC.getMark() + "' WHERE r_pk ='1';";
@@ -72,7 +79,6 @@ public class FrontPageController implements Initializable {
             };
         }
 
-        updateCards();
     }
 
     private void updateCards() {
@@ -86,21 +92,25 @@ public class FrontPageController implements Initializable {
             fxmlloader.setLocation(getClass().getResource("productCard.fxml"));
             try {
                 HBox cardBox = fxmlloader.load();
-            cardController cardC = fxmlloader.getController();
-            cardObject a = cars.get(i);
-            cardC.setData(a, myListener);
+                cardController cardC = fxmlloader.getController();
 
-            // Calculate row and column
-            int row = (i - start) / 2; // Assuming 2 columns
-            int col = (i - start) % 2;
+                cardObject a = cars.get(i);
+                System.out.println("Setting userId in CardController: " + userId);
 
-            // Add the card to the GridPane
-            recentLayout.add(cardBox, col, row);
-            System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
+                cardC.setData(a, myListener, userId); // Pass the userId as the third argument
+
+                // Calculate row and column
+                int row = (i - start) / 2; // Assuming 2 columns
+                int col = (i - start) % 2;
+
+                // Add the card to the GridPane
+                recentLayout.add(cardBox, col, row);
+                System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
             } catch (IOException e) {
                 e.printStackTrace(); // Or handle the exception in a way that's appropriate for your application
-
-            }  }}
+            }
+        }
+    }
 
     public void nextPage() {
         if (currentPage * itemsPerPage < cars.size()) {

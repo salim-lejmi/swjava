@@ -90,9 +90,22 @@ public class HomepageController implements Initializable {
 
     private String username;
 
-    
-   // ObservableList<productSearchModel>productSearchModelObservableList = FXCollections.observableArrayList();
-    
+    private int userId;
+    private FrontPageController frontPageController;
+
+    // ObservableList<productSearchModel>productSearchModelObservableList = FXCollections.observableArrayList();
+    private void loadFrontPageController() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("frontPage.fxml"));
+            Parent root = fxmlLoader.load();
+            frontPageController = fxmlLoader.getController();
+            bordermainPane.setCenter(root);
+        } catch (IOException e) {
+            System.err.println("Error loading frontPage.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -106,15 +119,9 @@ public class HomepageController implements Initializable {
         String frontPageFXMLPath = "src/cybermart/frontPage.fxml";
 
         Pane viewHome = null;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(new File(frontPageFXMLPath).toURI().toURL());
-            viewHome = fxmlLoader.load();
-            bordermainPane.setCenter(viewHome);
-        } catch (IOException e) {
-            System.err.println("Error loading frontPage.fxml: " + e.getMessage());
-            e.printStackTrace();
-        }
-        bordermainPane.setCenter(viewHome);
+        loadFrontPageController();
+
+
 
 
         exit.setOnMouseClicked(event -> {
@@ -167,35 +174,22 @@ public class HomepageController implements Initializable {
             }
         });
         cartButton.setOnMouseClicked(event -> {
-
-            int cus_id = 0;
-            String cus_name = null;
             try {
-                Statement statement1 = connectDBMS.createStatement();
-                String queryCID = "select customer_ID,customer_name FROM c_user WHERE c_ID=1;";
-                ResultSet queryCR = statement1.executeQuery(queryCID);
-                while (queryCR.next()) {
-                    cus_id = queryCR.getInt("customer_ID");
-                    cus_name = queryCR.getString("customer_name");
-                }
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("shoppingCart.fxml"));
+                Parent root = fxmlLoader.load();
+                ShoppingCartController shoppingCartController = fxmlLoader.getController();
+                shoppingCartController.setUserId(userId); // Pass the user ID
 
-            } catch (SQLException e) {
-                e.getCause();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Shopping Cart");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            if (cus_id == 0 || cus_name.isEmpty()) {
-                fxmlLoaderHome object = new fxmlLoaderHome();
-                Pane view = object.getPage("pleaseLogin");
-                bordermainPane.setCenter(view);
-
-            } else {
-
-                fxmlLoaderHome object = new fxmlLoaderHome();
-                Pane view = object.getPage("shoppingCart");
-                bordermainPane.setCenter(view);
-
-            }
-
         });
+
         dashboardButton.setOnMouseClicked(event -> {
 
             int cus_id = 0;
@@ -271,71 +265,12 @@ public class HomepageController implements Initializable {
 
         });
 
-//searchButton.setOnMouseEntered(event->{
-//            searchButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        searchButton.setOnMouseExited(event->{
-//            searchButton. setStyle("-fx-background-color: #00CED1; "); 
-//        });
-//        apparelsButton.setOnMouseEntered(event->{
-//            apparelsButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        apparelsButton.setOnMouseExited(event->{
-//            apparelsButton. setStyle("-fx-background-color: #00CED1; "); 
-//        });
-//        electronicsButton.setOnMouseExited(event->{
-//            electronicsButton. setStyle("-fx-background-color: #00CED1; "); 
-//        });
-//        electronicsButton.setOnMouseEntered(event->{
-//            electronicsButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//         kidsButton.setOnMouseExited(event->{
-//             kidsButton. setStyle("-fx-background-color: #00CED1; "); 
-//        });
-//        kidsButton.setOnMouseEntered(event->{
-//             kidsButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        accesoriesButton.setOnMouseExited(event->{
-//            accesoriesButton. setStyle("-fx-background-color: #00CED1; "); 
-//        });
-//        accesoriesButton.setOnMouseEntered(event->{
-//            accesoriesButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//    login_sign.setOnMouseEntered(event->{
-//            login_sign. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        login_sign.setOnMouseExited(event->{
-//            login_sign. setStyle("-fx-background-color: #40E0D0; "); 
-//            
-//        });
-//        vendorButton.setOnMouseEntered(event->{
-//            vendorButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        vendorButton.setOnMouseExited(event->{
-//            vendorButton. setStyle("-fx-background-color: #40E0D0; "); 
-//        });
-//        dashboardButton.setOnMouseEntered(event->{
-//            dashboardButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        dashboardButton.setOnMouseExited(event->{
-//            dashboardButton. setStyle("-fx-background-color: #40E0D0; "); 
-//        });
-//        cartButton.setOnMouseEntered(event->{
-//            cartButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        cartButton.setOnMouseExited(event->{
-//            cartButton. setStyle("-fx-background-color: #40E0D0; "); 
-//        });
-//        homeButton.setOnMouseEntered(event->{
-//            homeButton. setStyle("-fx-background-color: #F0FFFF; "); 
-//        });
-//        homeButton.setOnMouseExited(event->{
-//            homeButton. setStyle("-fx-background-color: #00CED1; "); 
-//        });
+
 
 
     }
-          
+
+
         public void setLabel(String text){
             login_sign.setText(text);
            System.out.println(text);
@@ -344,6 +279,15 @@ public class HomepageController implements Initializable {
         this.username = username;
         // Update the UI to show logout button or user information
         updateUI();
+        System.out.println("Username: " + username);
+
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("User ID in home page controller: " + userId);
+        if (frontPageController != null) {
+            frontPageController.setUserId(userId);
+        }
     }
     private void updateUI() {
         if (username != null) {
