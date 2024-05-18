@@ -7,6 +7,7 @@ public class ReceiptModel {
     private double price;
     private String carModel;
     private String carMark;
+    private String pictures; // New field to store the car picture path
 
     public ReceiptModel(LocalDateTime purchaseDate, double price, String carModel, String carMark) {
         this.purchaseDate = purchaseDate;
@@ -44,6 +45,13 @@ public class ReceiptModel {
 
     public void setCarMark(String carMark) {
         this.carMark = carMark;
+    }
+    public String getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(String pictures) {
+        this.pictures = pictures;
     }
 
 }

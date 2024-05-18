@@ -1,51 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.SignupController">
+<AnchorPane prefHeight="666.0" prefWidth="905.0" style="-fx-background-color: SNOW;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.SignupController">
    <children>
-      <Button fx:id="backButton" text="Back" onAction="#handleBack" />
+      <JFXButton fx:id="backButton" buttonType="RAISED" layoutX="14.0" layoutY="14.0" onAction="#handleBack" ripplerFill="BLACK" style="-fx-background-color: PALETURQUOISE;" text="Back">         <font>
+            <Font size="16.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
 
-      <VBox layoutX="50.0" layoutY="50.0" spacing="10.0">
+      <VBox layoutX="42.0" layoutY="93.0" spacing="10.0">
          <children>
-            <Label text="Signup">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
             <HBox spacing="10.0">
                <children>
-                  <Button fx:id="clientSignupButton" mnemonicParsing="false" onAction="#handleClientSignup" text="Client Signup" />
-                  <Button fx:id="expertSignupButton" mnemonicParsing="false" onAction="#handleExpertSignup" text="Expert Signup" />
+                  <JFXButton fx:id="clientSignupButton" buttonType="RAISED" onAction="#handleClientSignup" ripplerFill="BLACK" style="-fx-background-color: PALETURQUOISE;" text="Client Signup">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton fx:id="expertSignupButton" buttonType="RAISED" onAction="#handleExpertSignup" ripplerFill="BLACK" style="-fx-background-color: PALETURQUOISE;" text="Expert Signup">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                  </JFXButton>
                </children>
             </HBox>
-            <Label text="Username:" />
-            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="200.0" />
-
-            <Label text="Email:" />
-            <TextField fx:id="emailField" prefHeight="25.0" prefWidth="200.0" />
-            <Label text="Password:" />
-            <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="200.0" />
-            <Label text="Confirm Password:" />
-            <PasswordField fx:id="confirmPasswordField" prefHeight="25.0" prefWidth="200.0" />
-            <Label text="Bank Account:" />
-            <TextField fx:id="bankAccountField" prefHeight="25.0" prefWidth="200.0" />
-            <Label text="Job Title:" fx:id="jobTitleLabel" visible="false" />
-            <TextField fx:id="jobTitleField" prefHeight="25.0" prefWidth="200.0" visible="false" />
-            <Label text="Speciality:" fx:id="specialityLabel" visible="false" />
-            <TextField fx:id="specialityField" prefHeight="25.0" prefWidth="200.0" visible="false" />
-            <Button fx:id="pictureUploadButton" text="Upload Picture" onAction="#handlePictureUpload" />
-            <Button fx:id="jobDescriptionUploadButton" text="Upload Job Description" onAction="#handleJobDescriptionUpload" />
-            <Button text="Register" onAction="#handleSignup" />
-            <Label fx:id="messageLabel" />
          </children>
       </VBox>
-   </children>
-</AnchorPane>
+
+      <VBox layoutX="50.0" layoutY="150.0" spacing="10.0">
+         <children>
+            <Label text="Username: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/user1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <TextField fx:id="usernameField" prefHeight="31.0" prefWidth="350.0" promptText="Enter Username" style="-fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </TextField>
+
+            <Label text="Email: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/email.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <TextField fx:id="emailField" prefHeight="31.0" prefWidth="350.0" promptText="Enter Email" style="-fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </TextField>
+            <Label text="Password: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/key.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="350.0" promptText="Enter Password" style="-fx-background-color: tranparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </PasswordField>
+            <Label text="Confirm Password: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/key.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <PasswordField fx:id="confirmPasswordField" prefHeight="31.0" prefWidth="350.0" promptText="Confirm Password" style="-fx-background-color: tranparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </PasswordField>
+         </children>
+      </VBox>
+
+      <VBox layoutX="500.0" layoutY="150.0" spacing="10.0">
+         <children>
+            <Label text="Bank Account: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/bank.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <TextField fx:id="bankAccountField" prefHeight="31.0" prefWidth="350.0" promptText="Enter Bank Account" style="-fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </TextField>
+            <Label fx:id="jobTitleLabel" text="Job Title: " visible="false">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/job-title.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <TextField fx:id="jobTitleField" prefHeight="31.0" prefWidth="350.0" promptText="Enter Job Title" style="-fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </TextField>
+            <Label fx:id="specialityLabel" text="Speciality: " visible="false">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/speciality.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <TextField fx:id="specialityField" prefHeight="31.0" prefWidth="350.0" promptText="Enter Speciality" style="-fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </TextField>
+            <JFXButton fx:id="pictureUploadButton" buttonType="RAISED" ripplerFill="BLACK" style="-fx-background-color: PALETURQUOISE;" text="Upload Picture" onAction="#handlePictureUpload">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="jobDescriptionUploadButton" buttonType="RAISED" ripplerFill="BLACK" style="-fx-background-color: PALETURQUOISE;" text="Upload Job Description" onAction="#handleJobDescriptionUpload" visible="false">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </JFXButton>
+         </children>
+      </VBox>
+      <JFXButton buttonType="RAISED" layoutX="391.0" layoutY="603.0" onAction="#handleSignup" ripplerFill="BLACK" style="-fx-background-color: PALETURQUOISE;" text="Register">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <Label fx:id="messageLabel" layoutX="500.0" layoutY="650.0" />
+      <Label layoutX="394.0" layoutY="40.0" text="Signup">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label></children> </AnchorPane>
