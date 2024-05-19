@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 
@@ -101,14 +102,19 @@ public class LoginController implements Initializable {
         Connection connectDB = connectNow.getConnection();
 
         try {
-            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM user WHERE username =?";
             PreparedStatement statement = connectDB.prepareStatement(query);
             statement.setString(1, username);
-            statement.setString(2, password); // Consider hashing passwords for security
 
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+                String storedHashedPassword = resultSet.getString("password");
+                String modifiedHashedPassword = "$2a$" + storedHashedPassword.substring(4); // Remove revision prefix and add $2a$
+
+                boolean passwordMatches = BCrypt.checkpw(password, modifiedHashedPassword);
+                if (passwordMatches) {
+
                 // Login successful
                 LoginMsgLabel.setText("Welcome to Cyber Mart family");
                 int userId = resultSet.getInt("id");
@@ -128,7 +134,10 @@ public class LoginController implements Initializable {
                 // Pass the username to the HomepageController if needed
                 homepageController.setUsername(username);
                 homepageController.setUserId(userId); // Add this method in HomepageController
-
+                } else {
+                    // Incorrect password
+                    LoginMsgLabel.setText("Invalid login. Please try again.");
+                }
             } else {
                 // Login failed
                 LoginMsgLabel.setText("Invalid login. Please try again.");

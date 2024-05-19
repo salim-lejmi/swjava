@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.ReceiptController">
@@ -12,8 +13,12 @@
         </Label>
     </top>
     <center>
-        <VBox fx:id="receiptItemsContainer" spacing="10.0" BorderPane.alignment="CENTER">
-            <!-- Receipt items will be dynamically added here -->
-        </VBox>
+        <ScrollPane BorderPane.alignment="CENTER">
+            <content>
+                <VBox fx:id="receiptItemsContainer" spacing="10.0" BorderPane.alignment="CENTER">
+                    <!-- Receipt items will be dynamically added here -->
+                </VBox>
+            </content>
+        </ScrollPane>
     </center>
 </BorderPane>

@@ -1,93 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox fx:id="pCard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#click" prefHeight="200.0" prefWidth="409.0" spacing="15.0" style="-fx-background-color: DARKSLATEBLUE; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.cardController">
-   <children>
-      <AnchorPane minHeight="175.0" prefHeight="179.0" prefWidth="182.0" style="-fx-background-color: white; -fx-background-radius: 15;">
-         <HBox.margin>
-            <Insets bottom="15.0" left="3.0" top="15.0" />
-         </HBox.margin>
-         <children>
-            <ImageView fx:id="cardImage" fitHeight="163.0" fitWidth="169.0" layoutX="7.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="6.0" />
-         </children>
-      </AnchorPane>
-      <VBox maxHeight="175.0" prefHeight="175.0" prefWidth="182.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0), 10, 0, 0, 10);">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <children>
-            <Label fx:id="cardName" alignment="CENTER" prefHeight="49.0" prefWidth="202.0" text="Lenovo legion">
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="cardPrice" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="price">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="cardStock" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="stock">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-            </Label>
-            <!-- New fields -->
-            <Label fx:id="cardDescription" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Description">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="cardColor" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Color">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="cardMileage" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Mileage">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="cardQuantity" alignment="CENTER" prefHeight="48.0" prefWidth="216.0" text="Quantity">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="-10.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="buyButton" text="Buy" onAction="#buyClicked"/>
-
-         </children>
-         <HBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </HBox.margin>
-      </VBox>
-   </children>
-   <effect>
-      <DropShadow />
-   </effect>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.cardController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <ImageView fx:id="cardImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+    <VBox alignment="TOP_CENTER" prefHeight="230.0" prefWidth="200.0" spacing="5.0">
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+        <Label fx:id="cardName" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Lenovo legion" />
+        <Label fx:id="cardPrice" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Price" />
+        <Label fx:id="cardStock" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Stock" />
+        <Label fx:id="cardDescription" style="-fx-font-size: 12px;" text="Description" wrapText="true" />
+        <Label fx:id="cardColor" style="-fx-font-size: 12px;" text="Color" />
+        <Label fx:id="cardMileage" style="-fx-font-size: 12px;" text="Mileage" />
+        <Label fx:id="cardQuantity" style="-fx-font-size: 12px;" text="Quantity" />
+        <Button fx:id="buyButton" mnemonicParsing="false" onAction="#buyClicked" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Buy" />
+    </VBox>
 </HBox>

@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,6 +20,8 @@ import java.util.ResourceBundle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import org.mindrot.jbcrypt.BCrypt;
+
 public class SignupController implements Initializable {
     public Label jobTitleLabel;
     public Label specialityLabel;
@@ -102,8 +106,14 @@ public class SignupController implements Initializable {
         fileChooser.setTitle("Select Profile Picture");
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            picturePath = selectedFile.getAbsolutePath();
-            // You might want to move the file to a specific directory if needed
+            String uploadDirectory = "C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads";
+            File targetFile = new File(uploadDirectory, selectedFile.getName());
+            try {
+                Files.copy(selectedFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                picturePath = targetFile.getName();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -113,11 +123,16 @@ public class SignupController implements Initializable {
         fileChooser.setTitle("Select Job Description");
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            jobDescriptionPath = selectedFile.getAbsolutePath();
-            // You might want to move the file to a specific directory if needed
+            String uploadDirectory = "C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads";
+            File targetFile = new File(uploadDirectory, selectedFile.getName());
+            try {
+                Files.copy(selectedFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                jobDescriptionPath = targetFile.getName();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
     @FXML
     private void handleSignup() {
         if (isClientSignup) {
@@ -135,6 +150,8 @@ public class SignupController implements Initializable {
         String confirmPassword = confirmPasswordField.getText();
 
         if (password.equals(confirmPassword)) {
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
             DatabaseConnection connectNow = new DatabaseConnection();
             Connection connectDB = connectNow.getConnection();
             try {
@@ -142,7 +159,7 @@ public class SignupController implements Initializable {
                 PreparedStatement statement = connectDB.prepareStatement(query);
                 statement.setString(1, username);
                 statement.setString(2, email);
-                statement.setString(3, password);
+                statement.setString(3, hashedPassword);
                 statement.setString(4, bank_account);
                 statement.setString(5, "ROLE_CLIENT");
                 statement.setString(6, picturePath);
@@ -168,6 +185,8 @@ public class SignupController implements Initializable {
         String bank_account= bankAccountField.getText();
 
         if (password.equals(confirmPassword)) {
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
             DatabaseConnection connectNow = new DatabaseConnection();
             Connection connectDB = connectNow.getConnection();
             try {
@@ -175,7 +194,7 @@ public class SignupController implements Initializable {
                 PreparedStatement statement = connectDB.prepareStatement(query);
                 statement.setString(1, username);
                 statement.setString(2, email);
-                statement.setString(3, password);
+                statement.setString(3, hashedPassword);
                 statement.setString(4, bank_account);
                 statement.setString(5, jobTitle);
                 statement.setString(6, speciality);

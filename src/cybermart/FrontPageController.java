@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
@@ -28,7 +29,7 @@ public class FrontPageController implements Initializable {
     }
 
     @FXML
-    private GridPane recentLayout;
+    private FlowPane recentLayout;
 
     private List<cardObject> cars;
     private MyListener myListener;
@@ -102,12 +103,7 @@ public class FrontPageController implements Initializable {
 
                 cardC.setData(a, myListener, userId); // Pass the userId as the third argument
 
-                // Calculate row and column
-                int row = (i - start) / 2; // Assuming 2 columns
-                int col = (i - start) % 2;
-
-                // Add the card to the GridPane
-                recentLayout.add(cardBox, col, row);
+                recentLayout.getChildren().add(cardBox); // Add the card to the FlowPane
                 System.out.println("Added cardBox for: " + a.getMark() + " " + a.getModel());
             } catch (IOException e) {
                 e.printStackTrace(); // Or handle the exception in a way that's appropriate for your application
