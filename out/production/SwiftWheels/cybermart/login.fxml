@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="LoginPane" prefHeight="520.0" prefWidth="720.0" style="-fx-background-color: SNOW;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.LoginController">
+<AnchorPane id="AnchorPane" fx:id="LoginPane" prefHeight="520.0" prefWidth="720.0" style="-fx-background-color: SNOW;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.LoginController">
    <stylesheets>
       <URL value="@login.css" />
    </stylesheets>
@@ -76,11 +71,6 @@
             <Bloom />
          </effect>
       </JFXButton>
-      <ImageView fitHeight="520.0" fitWidth="360.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@images/wp2124843-cyber-wallpapers.jpg" />
-         </image>
-      </ImageView>
       <PasswordField fx:id="passwordField" layoutX="518.0" layoutY="168.0" prefHeight="31.0" prefWidth="174.0" promptText="Enter password" style="-fx-background-color: tranparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: DEEPSKYBLUE; -fx-background-color: MINTCREAM;">
          <font>
             <Font size="14.0" />
@@ -94,5 +84,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <ImageView fitHeight="520.0" fitWidth="369.0" layoutX="-9.0" layoutY="-1.0">
+         <image>
+            <Image url="@images/login.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

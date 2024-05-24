@@ -34,11 +34,13 @@
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <Button fx:id="buyButton" mnemonicParsing="false" onAction="#buyClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;" text="Buy Now">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
+        <HBox spacing="10.0">
+            <Button fx:id="buyButton" mnemonicParsing="false" onAction="#buyClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;" text="Buy Now">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+            <Label fx:id="confirmationLabel" text="Car added to cart!" style="-fx-text-fill: green; -fx-font-size: 14px;" visible="false"/>
+        </HBox>
     </VBox>
-
 </HBox>

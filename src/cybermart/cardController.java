@@ -1,20 +1,19 @@
 package cybermart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+
+import javafx.animation.PauseTransition;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
-
-import com.luciad.imageio.webp.WebPReadParam;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -24,6 +23,8 @@ public class cardController {
     private ImageView cardImage;
     @FXML
     private Label cardName, cardPrice, cardStock, cardDescription, cardColor, cardMileage, cardQuantity;
+    @FXML
+    private Label confirmationLabel;
     private cardObject cardC;
     private MyListener myListener;
     @FXML
@@ -52,7 +53,6 @@ public class cardController {
         cardMileage.setText("Mileage: " + String.valueOf(cardC.getMileage()));
         cardQuantity.setText("Quantity: " + String.valueOf(cardC.getQuantity()));
     }
-
 
     private Image loadWebPImage(String imagePath) {
         try {
@@ -87,9 +87,18 @@ public class cardController {
             statement.setBoolean(4, false); // Assuming 'purchased' is a boolean indicating if the item is purchased
             statement.executeUpdate();
 
+            showConfirmationMessage();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showConfirmationMessage() {
+        confirmationLabel.setVisible(true);
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> confirmationLabel.setVisible(false));
+        pause.play();
     }
 
     public int getUserId() {
