@@ -1,10 +1,14 @@
 package cybermart;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,11 +18,11 @@ import java.util.Date;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
 public class AddCardFormController {
 
     @FXML
@@ -50,17 +54,22 @@ public class AddCardFormController {
     @FXML
     private TextField quantityField;
 
-
     private FileChooser fileChooser;
     private File selectedFile;
+    private HomepageController homepageController;
 
     public void initialize() {
         fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
         fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+                new ExtensionFilter("Image Files", ".png", ".jpg", "*.gif")
         );
     }
+
+    public void setHomepageController(HomepageController homepageController) {
+        this.homepageController = homepageController;
+    }
+
     @FXML
     private void handleAddButton() {
         String mark = markField.getText();
@@ -70,7 +79,6 @@ public class AddCardFormController {
         String pictures = null;
         if (selectedFile != null) {
             pictures = selectedFile.getName();
-
             try {
                 Path destination = Paths.get("C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads\\" + selectedFile.getName());
                 Files.copy(selectedFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
@@ -114,16 +122,15 @@ public class AddCardFormController {
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("A new car was inserted successfully!");
+                homepageController.loadFrontPage();
+                closeStage();
             }
         } catch (SQLException e) {
             System.err.println("Error executing SQL insert: " + e.getMessage());
             e.printStackTrace();
         }
-
-        // Close the AddCardForm stage
-        Stage stage = (Stage) markField.getScene().getWindow();
-        stage.close();
     }
+
     @FXML
     private void handleSelectImage() {
         selectedFile = fileChooser.showOpenDialog(markField.getScene().getWindow());
@@ -134,7 +141,12 @@ public class AddCardFormController {
 
     @FXML
     private void handleCancelButton() {
-        // Close the AddCardForm stage
+        homepageController.loadFrontPage();
+        closeStage();
+    }
+
+    private void closeStage() {
         Stage stage = (Stage) markField.getScene().getWindow();
         stage.close();
-    }}
+    }
+}

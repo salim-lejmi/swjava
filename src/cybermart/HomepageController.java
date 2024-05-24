@@ -105,7 +105,14 @@ public class HomepageController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    public void loadFrontPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("frontPage.fxml"));
+            Parent root = loader.load();
+            bordermainPane.setCenter(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -287,11 +294,14 @@ public class HomepageController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCardForm.fxml"));
             Parent root = loader.load();
+            AddCardFormController controller = loader.getController();
+            controller.setHomepageController(this); // Pass reference to HomepageController
             bordermainPane.setCenter(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     @FXML
