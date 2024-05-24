@@ -1,5 +1,6 @@
 package cybermart;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -40,20 +41,18 @@ public class cardController {
         if (imagePath.endsWith(".webp")) {
             tImage1 = loadWebPImage(imagePath);
         } else {
-            tImage1 = new Image("file:" + imagePath, 169, 163, false, false);
+            tImage1 = new Image("file:" + imagePath);
         }
 
         cardImage.setImage(tImage1);
-        cardImage.setFitHeight(169);
-        cardImage.setFitWidth(163);
         cardName.setText(cardC.getMark() + " " + cardC.getModel());
         cardPrice.setText("Price: " + String.valueOf(cardC.getPrice()));
-        cardStock.setText("Stock: " + String.valueOf(cardC.getQuantity()));
         cardDescription.setText("Description: " + cardC.getDescription());
         cardColor.setText("Color: " + cardC.getColor());
         cardMileage.setText("Mileage: " + String.valueOf(cardC.getMileage()));
         cardQuantity.setText("Quantity: " + String.valueOf(cardC.getQuantity()));
     }
+
 
     private Image loadWebPImage(String imagePath) {
         try {
@@ -87,6 +86,7 @@ public class cardController {
             statement.setInt(3, carId);
             statement.setBoolean(4, false); // Assuming 'purchased' is a boolean indicating if the item is purchased
             statement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

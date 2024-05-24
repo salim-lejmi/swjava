@@ -1,7 +1,10 @@
-/*
- * Empty Stylesheet file.
- */
+/* Default state of buttons */
+.button {
+        -fx-text-fill: white; /* Ensures text is white normally */
+}
+
+/* Hover effect for buttons */
 .button:hover {
-        -fx-background-color: #F0FFFF;
-        
+        -fx-background-color: #F0FFFF; /* Changes background color on hover */
+        -fx-text-fill: black; /* Changes text color to black on hover */
 }

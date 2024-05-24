@@ -47,3 +47,24 @@
 	-fx-background-radius: 0;
 	-fx-padding: 0;
 }
+/* General button styling */
+.modern-button {
+	-fx-background-color: #007BFF;
+	-fx-text-fill: white;
+	-fx-border-radius: 15px;
+	-fx-padding: 10px 20px;
+	-fx-font-family: "Arial";
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+/* Hover effect for buttons */
+.modern-button:hover {
+	-fx-background-color: #0056b3;
+}
+
+/* Specific styling if needed */
+#previousButton,
+#nextButton {
+	/* Add any specific styles here if different from.modern-button */
+}

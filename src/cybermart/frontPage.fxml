@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.net.URL?>
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F0F0F0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.FrontPageController">
     <BorderPane layoutX="282.0" layoutY="110.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <center>
@@ -27,10 +28,15 @@
                     <FlowPane fx:id="recentLayout" hgap="20.0" vgap="20.0" prefWrapLength="1200.0" />
                 </ScrollPane>
                 <HBox alignment="CENTER" spacing="10.0">
-                    <Button mnemonicParsing="false" onAction="#previousPage" text="Previous" />
-                    <Button mnemonicParsing="false" onAction="#nextPage" text="Next" />
+                    <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousPage" text="Previous" styleClass="modern-button" />
+                    <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextPage" text="Next" styleClass="modern-button" />
                 </HBox>
+
             </VBox>
         </center>
     </BorderPane>
+    <stylesheets>
+        <URL value="@frontpage.css"/>
+    </stylesheets>
 </AnchorPane>
+
