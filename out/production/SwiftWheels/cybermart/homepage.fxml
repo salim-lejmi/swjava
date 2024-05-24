@@ -56,7 +56,7 @@
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/shopping-cart (2).png" />
+                                    <Image url="@images/addcar.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -84,7 +84,7 @@
                            </effect>
                         </JFXButton>
                         <Region prefWidth="20.0" HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="cartButton" alignment="CENTER" prefHeight="43.0" prefWidth="150.0" style="-fx-background-radius: 0;" text="Shopping Cart" textFill="WHITE">
+                        <JFXButton fx:id="cartButton" alignment="CENTER" prefHeight="43.0" prefWidth="150.0" style="-fx-background-radius: 0;" text="Cart" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

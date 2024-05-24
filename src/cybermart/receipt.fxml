@@ -4,21 +4,30 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.ReceiptController">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cybermart.ReceiptController" stylesheets="@shoppingcart.css">
     <top>
-        <Label styleClass="header-label" text="Receipt" BorderPane.alignment="CENTER">
-            <BorderPane.margin>
+        <HBox alignment="CENTER_LEFT" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label styleClass="header-label" text="Receipt" />
+            </children>
+            <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </BorderPane.margin>
-        </Label>
+            </padding>
+        </HBox>
     </top>
     <center>
-        <ScrollPane BorderPane.alignment="CENTER">
+        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
             <content>
-                <VBox fx:id="receiptItemsContainer" spacing="10.0" BorderPane.alignment="CENTER">
+                <VBox fx:id="receiptItemsContainer" spacing="10.0">
                     <!-- Receipt items will be dynamically added here -->
                 </VBox>
             </content>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
         </ScrollPane>
     </center>
 </BorderPane>

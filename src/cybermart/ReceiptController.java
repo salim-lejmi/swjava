@@ -1,9 +1,11 @@
 package cybermart;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.sql.Connection;
@@ -31,19 +33,29 @@ public class ReceiptController {
             // Create UI components for each receipt item
             ImageView itemImage = new ImageView();
             String imagePath = "C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads\\" + item.getPictures();
-            Image image = new Image("file:" + imagePath, 100, 100, false, false);
+            Image image = new Image("file:///" + imagePath, 250, 150, false, false);
             itemImage.setImage(image);
+            itemImage.getStyleClass().add("receipt-item-image");
 
-            Label purchaseDateLabel = new Label("Purchase Date: " + item.getPurchaseDate());
             Label itemName = new Label("Model: " + item.getCarModel() + ", Mark: " + item.getCarMark());
+            itemName.getStyleClass().add("receipt-item-name");
             Label itemPrice = new Label("Price: $" + item.getPrice());
+            itemPrice.getStyleClass().add("receipt-item-price");
+            Label purchaseDateLabel = new Label("Purchase Date: " + item.getPurchaseDate());
+            purchaseDateLabel.getStyleClass().add("receipt-item-date");
 
-            VBox itemContainer = new VBox(itemImage, purchaseDateLabel, itemName, itemPrice);
-            itemContainer.setStyle("-fx-padding: 10px; -fx-background-color: #f0f0f0; -fx-background-radius: 5px;");
+            VBox itemDetails = new VBox(itemName, itemPrice, purchaseDateLabel);
+            itemDetails.getStyleClass().add("receipt-item-details");
+
+            HBox itemContainer = new HBox(itemImage, itemDetails);
+            itemContainer.getStyleClass().add("receipt-item");
+            itemContainer.setAlignment(Pos.CENTER_LEFT);
+            itemContainer.setSpacing(10);
 
             receiptItemsContainer.getChildren().add(itemContainer);
         }
     }
+
 
     private List<ReceiptModel> fetchReceiptItems(int userId) {
         List<ReceiptModel> receiptItems = new ArrayList<>();

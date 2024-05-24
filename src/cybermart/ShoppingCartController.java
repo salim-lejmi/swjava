@@ -67,21 +67,29 @@ public class ShoppingCartController {
             // Create UI components for each cart item
             ImageView itemImage = new ImageView();
             String imagePath = "C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads\\" + item.getPictures();
-            Image image = new Image("file:" + imagePath, 100, 100, false, false);
+            Image image = new Image("file:///" + imagePath, 250, 150, false, false); // Increase width and height to 150
             itemImage.setImage(image);
+            itemImage.getStyleClass().add("cart-item-image");
 
             Label itemName = new Label("Model: " + item.getCarModel() + ", Mark: " + item.getCarMark());
+            itemName.getStyleClass().add("cart-item-name");
             Label itemPrice = new Label("Price: $" + item.getPrice());
+            itemPrice.getStyleClass().add("cart-item-price");
 
             Button deleteButton = new Button("Delete");
+            deleteButton.getStyleClass().add("delete-button");
             deleteButton.setOnAction(event -> {
                 deleteCartItem(item.getId());
                 loadCartItems(); // Reload cart items after deletion
             });
 
-            HBox itemContainer = new HBox(itemImage, new VBox(itemName, itemPrice), deleteButton);
+            VBox itemDetails = new VBox(itemName, itemPrice);
+            itemDetails.getStyleClass().add("cart-item-details");
+
+            HBox itemContainer = new HBox(itemImage, itemDetails, deleteButton);
+            itemContainer.getStyleClass().add("cart-item");
+            itemContainer.setAlignment(Pos.CENTER_LEFT);
             itemContainer.setSpacing(10);
-            itemContainer.setStyle("-fx-padding: 10px; -fx-background-color: #f0f0f0; -fx-background-radius: 5px;");
 
             cartItemsContainer.getChildren().add(itemContainer);
 
@@ -91,7 +99,6 @@ public class ShoppingCartController {
         itemCountLabel.setText(cartItems.size() + " Items");
         totalPriceLabel.setText(String.format("Total: $%.2f", totalPrice));
     }
-
     private void deleteCartItem(int itemId) {
         String query = "DELETE FROM cart WHERE id = ?";
         DatabaseConnection connectNow = new DatabaseConnection();
