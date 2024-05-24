@@ -85,7 +85,7 @@ public class FrontPageController implements Initializable {
 
     }
 
-    private void updateCards() {
+    public void updateCards() {
         recentLayout.getChildren().clear(); // Clear the current cards
 
         int start = (currentPage - 1) * itemsPerPage;

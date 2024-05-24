@@ -1,0 +1,52 @@
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E86C1;
+}
+
+.form-grid {
+    -fx-background-color: #F4F6F6;
+    -fx-padding: 20px;
+    -fx-border-color: #D5D8DC;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.form-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+}
+
+.form-field, .form-checkbox {
+    -fx-font-size: 16px;
+    -fx-background-color: #FBFCFC;
+    -fx-border-color: #D5D8DC;
+    -fx-border-radius: 3px;
+    -fx-padding: 5px;
+}
+
+.action-button {
+    -fx-background-color: #2E86C1;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+}
+
+.action-button:hover {
+    -fx-background-color: #1A5276;
+}
+
+VBox {
+    -fx-background-color: #ECF0F1;
+    -fx-padding: 20px;
+    -fx-border-color: #D5D8DC;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+ScrollPane {
+    -fx-background-color: transparent;
+}

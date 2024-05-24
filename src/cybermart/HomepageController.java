@@ -73,8 +73,6 @@ public class HomepageController implements Initializable {
     private JFXButton homeButton;
 
     @FXML
-    private JFXButton dashboardButton;
-    @FXML
     private JFXButton receiptButton;
     @FXML
     private JFXButton login_sign;
@@ -202,37 +200,8 @@ public class HomepageController implements Initializable {
                 e.printStackTrace();
             }
         });
-        dashboardButton.setOnMouseClicked(event -> {
-
-            int cus_id = 0;
-            String cus_name = null;
-            try {
-                Statement statement1 = connectDBMS.createStatement();
-                String queryCID = "select customer_ID,customer_name FROM c_user WHERE c_ID=1;";
-                ResultSet queryCR = statement1.executeQuery(queryCID);
-                while (queryCR.next()) {
-                    cus_id = queryCR.getInt("customer_ID");
-                    cus_name = queryCR.getString("customer_name");
-                }
-
-            } catch (SQLException e) {
-                e.getCause();
-            }
-            if (cus_id == 0 || cus_name.isEmpty()) {
-                fxmlLoaderHome object = new fxmlLoaderHome();
-                Pane view = object.getPage("pleaseLogin");
-                bordermainPane.setCenter(view);
-
-            } else {
-
-                fxmlLoaderHome object = new fxmlLoaderHome();
-                Pane view = object.getPage("DashboardPage");
-                bordermainPane.setCenter(view);
-
-            }
 
 
-        });
 
         searchButton.setOnMouseClicked(event -> {
 
@@ -312,19 +281,18 @@ public class HomepageController implements Initializable {
             login_sign.setText("Login/Signup");
         }
     }
+
     @FXML
     private void showAddCardForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCardForm.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Add New Car");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            bordermainPane.setCenter(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void handleLogoutClick() {

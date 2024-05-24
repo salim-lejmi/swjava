@@ -10,6 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 public class AddCardFormController {
 
     @FXML
@@ -41,13 +50,34 @@ public class AddCardFormController {
     @FXML
     private TextField quantityField;
 
+
+    private FileChooser fileChooser;
+    private File selectedFile;
+
+    public void initialize() {
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+    }
     @FXML
     private void handleAddButton() {
         String mark = markField.getText();
         String model = modelField.getText();
         int price = Integer.parseInt(priceField.getText());
         String description = descriptionField.getText();
-        String pictures = picturesField.getText();
+        String pictures = null;
+        if (selectedFile != null) {
+            pictures = selectedFile.getName();
+
+            try {
+                Path destination = Paths.get("C:\\Users\\21696\\Documents\\SwiftWheels\\backend\\uploads\\" + selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         boolean abs = absCheckBox.isSelected();
         boolean epc = epcCheckBox.isSelected();
         boolean grayCard = grayCardCheckBox.isSelected();
@@ -61,8 +91,7 @@ public class AddCardFormController {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        // Modify the INSERT query to include user_id
-        String insertQuery = "INSERT INTO car (mark, model, price, description, pictures, abs, epc, gray_card, auto_gear_box, taxes, insurance, color, mileage, quantity, add_date, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        String insertQuery = "INSERT INTO car (mark, model, price, description, pictures, abs, epc, gray_card, auto_gear_box, taxes, insurance, color, mileage, quantity, add_date, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connectDB.prepareStatement(insertQuery);
             statement.setString(1, mark);
@@ -80,7 +109,6 @@ public class AddCardFormController {
             statement.setInt(13, mileage);
             statement.setInt(14, quantity);
             statement.setTimestamp(15, currentTime);
-            // Set user_id to 45
             statement.setInt(16, 45);
 
             int rowsInserted = statement.executeUpdate();
@@ -96,7 +124,13 @@ public class AddCardFormController {
         Stage stage = (Stage) markField.getScene().getWindow();
         stage.close();
     }
-
+    @FXML
+    private void handleSelectImage() {
+        selectedFile = fileChooser.showOpenDialog(markField.getScene().getWindow());
+        if (selectedFile != null) {
+            picturesField.setText(selectedFile.getName());
+        }
+    }
 
     @FXML
     private void handleCancelButton() {
