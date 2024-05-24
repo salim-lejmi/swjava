@@ -96,26 +96,28 @@ public class HomepageController implements Initializable {
     // ObservableList<productSearchModel>productSearchModelObservableList = FXCollections.observableArrayList();
     private void loadFrontPageController() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("frontPage.fxml"));
-            Parent root = fxmlLoader.load();
-            frontPageController = fxmlLoader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("frontPage.fxml"));
+            Parent root = loader.load();
+            frontPageController = loader.getController();
+
+            FrontPageController frontPageController = loader.getController();
+
+            frontPageController.setUserId(this.userId);
+
             bordermainPane.setCenter(root);
         } catch (IOException e) {
             System.err.println("Error loading frontPage.fxml: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
     public void loadFrontPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("frontPage.fxml"));
-            Parent root = loader.load();
-            bordermainPane.setCenter(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}
+        loadFrontPageController();
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
         DatabaseConnection connectnow = new DatabaseConnection();
         Connection connectDBMS = connectnow.getConnection();
@@ -227,14 +229,8 @@ public class HomepageController implements Initializable {
 
         });
 
-        homeButton.setOnMouseClicked(event -> {
-            if (frontPageController != null) {
-                frontPageController.refreshData(); // Refresh the data in FrontPageController
-            }
-            fxmlLoaderHome object = new fxmlLoaderHome();
-            Pane view = object.getPage("frontPage");
-            bordermainPane.setCenter(view);
-        });
+        homeButton.setOnMouseClicked(event -> loadFrontPage());
+
 
 
         MenuBack.setOnMouseExited(event -> {

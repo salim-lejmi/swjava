@@ -42,8 +42,9 @@ public class FrontPageController implements Initializable {
     public void setUserId(int userId) {
         this.userId = userId;
         System.out.println("User ID in front page controller now: " + userId);
-        updateCards();
+        refreshData();  // Ensure the cards are updated with the new userId
     }
+
 
     private void setChosenCard(cardObject cardC) {
         String queryRow = "Update row_table SET r_id='" + cardC.getId() + "',r_name='" + cardC.getMark() + "' WHERE r_pk ='1';";
@@ -81,9 +82,10 @@ public class FrontPageController implements Initializable {
                     setChosenCard(cardC);
                 }
             };
+            updateCards(); // Ensure cards are displayed on initialization
         }
-
     }
+
 
     public void updateCards() {
         recentLayout.getChildren().clear(); // Clear the current cards

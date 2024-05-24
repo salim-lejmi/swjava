@@ -3,6 +3,8 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/dist/CyberMart.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/Compressed/controlsfx-11.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/imageio-webp-3.10.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/webp-imageio-sejda-0.1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

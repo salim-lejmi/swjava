@@ -62,9 +62,10 @@ public class AddCardFormController {
         fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
         fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Image Files", ".png", ".jpg", "*.gif")
+                new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.webp")
         );
     }
+
 
     public void setHomepageController(HomepageController homepageController) {
         this.homepageController = homepageController;
