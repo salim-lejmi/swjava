@@ -47,7 +47,7 @@ public class cardController {
 
         cardImage.setImage(tImage1);
         cardName.setText(cardC.getMark() + " " + cardC.getModel());
-        cardPrice.setText("Price: " + String.valueOf(cardC.getPrice()));
+        cardPrice.setText("Price: $" + String.valueOf(cardC.getPrice()));
         cardDescription.setText("Description: " + cardC.getDescription());
         cardColor.setText("Color: " + cardC.getColor());
         cardMileage.setText("Mileage: " + String.valueOf(cardC.getMileage()));

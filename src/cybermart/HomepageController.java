@@ -32,8 +32,6 @@ import javafx.stage.Stage;
  */
 public class HomepageController implements Initializable {
 
-    @FXML
-    private JFXButton exit;
 
     @FXML
     private JFXButton apparelsButton;
@@ -89,7 +87,6 @@ public class HomepageController implements Initializable {
 
         String insertMain = "Update search_info SET search_query='' WHERE s_id ='1';";
 
-        exit.setOnMouseClicked(event -> System.exit(0));
 
         loadFrontPage();
 

@@ -24,14 +24,6 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <JFXButton fx:id="exit" alignment="CENTER" contentDisplay="CENTER" layoutX="1255.0" maxHeight="25.0" maxWidth="24.0" minWidth="25.0" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: red; -fx-background-radius: 0;" text="X" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <effect>
-                              <Bloom />
-                           </effect>
-                        </JFXButton>
                      </children></Pane>
                   <HBox layoutX="548.0" layoutY="-17.0" prefHeight="43.0" prefWidth="784.0" style="-fx-background-color: #0056b3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                      <children>

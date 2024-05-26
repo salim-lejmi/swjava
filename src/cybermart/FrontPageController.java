@@ -2,10 +2,7 @@ package cybermart;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -31,6 +29,9 @@ public class FrontPageController implements Initializable {
     @FXML
     private FlowPane recentLayout;
 
+    @FXML
+    private Label bankAmountLabel;
+
     private List<cardObject> cars;
     private MyListener myListener;
     private Stage stage;
@@ -43,8 +44,27 @@ public class FrontPageController implements Initializable {
         this.userId = userId;
         System.out.println("User ID in front page controller now: " + userId);
         refreshData();  // Ensure the cards are updated with the new userId
+        updateBankAmount();
+
     }
 
+    private void updateBankAmount() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        String query = "SELECT bank_amount FROM user WHERE id = ?";
+        try (PreparedStatement statement = connectDB.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int bankAmount = resultSet.getInt("bank_amount");
+                bankAmountLabel.setText(String.valueOf(bankAmount));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void setChosenCard(cardObject cardC) {
         String queryRow = "Update row_table SET r_id='" + cardC.getId() + "',r_name='" + cardC.getMark() + "' WHERE r_pk ='1';";

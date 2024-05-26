@@ -29,7 +29,7 @@
             <Label fx:id="cardMileage" style="-fx-font-size: 14px;" text="Mileage" />
             <Label fx:id="cardQuantity" style="-fx-font-size: 14px;" text="Quantity" />
         </HBox>
-        <Label fx:id="cardPrice" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Price">
+        <Label fx:id="cardPrice" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Price: $">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
@@ -40,7 +40,7 @@
                     <Font name="System Bold" size="14.0" />
                 </font>
             </Button>
-            <Label fx:id="confirmationLabel" text="Car added to cart!" style="-fx-text-fill: green; -fx-font-size: 14px;" visible="false"/>
+            <Label fx:id="confirmationLabel" style="-fx-text-fill: green; -fx-font-size: 14px;" text="Car added to cart!" visible="false" />
         </HBox>
     </VBox>
 </HBox>

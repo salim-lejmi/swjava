@@ -99,6 +99,7 @@ public class ShoppingCartController {
         itemCountLabel.setText(cartItems.size() + " Items");
         totalPriceLabel.setText(String.format("Total: $%.2f", totalPrice));
     }
+
     private void deleteCartItem(int itemId) {
         String query = "DELETE FROM cart WHERE id = ?";
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -112,21 +113,79 @@ public class ShoppingCartController {
         }
     }
 
-
-
     @FXML
     private void purchaseItems() {
         List<ShoppingCartModel> cartItems = fetchCartItems(userId);
-        for (ShoppingCartModel item : cartItems) {
-            // Mark the item as purchased
-            updateCartItemAsPurchased(item.getId());
 
-            // Insert a new record in the Receipt table
-            insertReceipt(item.getId(), LocalDateTime.now());
+        if (cartItems.isEmpty()) {
+            showAlert("Your cart is empty. Please add items to your cart before purchasing.");
+            return;
         }
 
-        // Reload the cart items
-        loadCartItems();
+        double totalPrice = cartItems.stream().mapToDouble(ShoppingCartModel::getPrice).sum();
+        double userBalance = fetchUserBalance(userId);
+
+        if (userBalance < totalPrice) {
+            showAlert("Insufficient balance to complete the purchase.");
+            return;
+        }
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Purchase");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to purchase the items in your cart?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Deduct the total price from the user's bank account
+            updateUserBalance(userId, userBalance - totalPrice);
+
+            // Proceed with the purchase
+            for (ShoppingCartModel item : cartItems) {
+                // Mark the item as purchased
+                updateCartItemAsPurchased(item.getId());
+
+                // Insert a new record in the Receipt table
+                insertReceipt(item.getId(), LocalDateTime.now());
+            }
+
+            // Reload the cart items
+            loadCartItems();
+
+            // Show a success alert
+            showAlert("Purchase successful!");
+        }
+    }
+
+    private double fetchUserBalance(int userId) {
+        String query = "SELECT bank_amount FROM user WHERE id = ?";
+        DatabaseConnection connectNow = new DatabaseConnection();
+
+        try (Connection connectDB = connectNow.getConnection();
+             PreparedStatement statement = connectDB.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble("bank_amount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    private void updateUserBalance(int userId, double newBalance) {
+        String query = "UPDATE user SET bank_amount = ? WHERE id = ?";
+        DatabaseConnection connectNow = new DatabaseConnection();
+
+        try (Connection connectDB = connectNow.getConnection();
+             PreparedStatement statement = connectDB.prepareStatement(query)) {
+            statement.setDouble(1, newBalance);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateCartItemAsPurchased(int itemId) {
@@ -141,7 +200,6 @@ public class ShoppingCartController {
             e.printStackTrace();
         }
     }
-
 
     private void insertReceipt(int cartId, LocalDateTime purchaseDate) {
         String query = "INSERT INTO Receipt (purchase_date, cart_id) VALUES (?, ?)";
@@ -185,6 +243,12 @@ public class ShoppingCartController {
         }
         return cartItems;
     }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
-
-
